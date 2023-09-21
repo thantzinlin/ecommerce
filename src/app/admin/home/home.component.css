@@ -1,0 +1,102 @@
+.list-group-item {
+  border: none;
+}
+
+/* Style the main menu item */
+.list-group-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the main menu text */
+.list-group-item span {
+  flex-grow: 1; /* Allow it to expand to fill available space */
+}
+
+/* Style the sub-menu */
+.sub-menu {
+  display: none;
+  /* background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 100px; */
+  z-index: 1;
+}
+
+/* Style the sub-menu items */
+.sub-menu a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  /* color: #333; */
+}
+
+/* Show the sub-menu when the parent item is hovered */
+.list-group-item:hover .sub-menu {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+
+.countdowntime {
+  color: var(--Text2, #000);
+  /* Heading/32PX Bold */
+  /* font-family: Inter; */
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px; /* 93.75% */
+  letter-spacing: 1.28px;
+}
+
+.flashsale {
+  color: var(--Text2, #000);
+  /* Heading/36PX SemiBold */
+  /* font-family: Inter; */
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 48px; /* 133.333% */
+  letter-spacing: 1.44px;
+}
+
+.card {
+  width: auto;
+  max-width: 270px;
+  height: auto;
+  max-height: 350px;
+}
+.images {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* This centers vertically as well */
+  border-radius: 4px;
+  background: var(--Secondary, #f5f5f5);
+}
+
+.card-img {
+  width: 140px;
+  height: 146px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.product-title {
+  color: #000;
+  margin-top: 16px;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+.price {
+  color: var(--Secondary-2, #db4444);
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
