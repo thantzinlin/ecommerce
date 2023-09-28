@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,11 +10,17 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   targetDate: Date = new Date('2023-09-18T00:00:00'); // Replace with your flash sale end date
   countdown: string = '';
-
-  constructor() {}
+  products: any[] = [];
+  pagObj = { page: 1, limit: 10, totalPages: 1, count: 0, search: '' };
+  constructor(
+    private apiservice: ApiService,
+    private router: Router,
+    private toast: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.updateCountdown();
+    // this.fetchProducts();
     setInterval(() => {
       this.updateCountdown();
     }, 1000);
@@ -87,4 +95,19 @@ export class HomeComponent implements OnInit {
       title: 'Example two with title.',
     },
   ];
+
+  async fetchProducts() {
+    try {
+      const res: any = await this.apiservice
+        .getAll(`product/getall`, this.pagObj)
+        .toPromise();
+      if (res) {
+        this.products = res.data;
+        this.pagObj.totalPages = res.totalPages;
+        this.pagObj.count = res.count;
+      }
+    } catch (error) {
+      console.error('An error occurred while fetching products:', error);
+    }
+  }
 }

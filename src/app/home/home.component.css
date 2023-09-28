@@ -100,3 +100,41 @@
   font-weight: 500;
   line-height: 24px;
 }
+
+.productcontainer {
+  position: relative;
+}
+
+.add-to-cart-btn {
+  position: absolute;
+  bottom: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none; /* Hide the button by default */
+}
+
+.productcontainer:hover .add-to-cart-btn {
+  display: block;
+}
+
+.productcontainer .add-to-cart-btn {
+  opacity: 0; /* Initially hide the button */
+  transition: opacity 0.3s ease-in-out; /* Add a smooth transition effect */
+}
+
+.productcontainer:hover .add-to-cart-btn {
+  opacity: 1; /* Display the button on hover */
+}
+
+.star-rating {
+  color: #ffad33; /* Change star color as needed */
+  display: inline-block;
+  font-size: 0; /* Remove any extra spacing */
+}
+
+.star-rating svg {
+  fill: currentColor;
+  width: 16px;
+  height: 15px;
+  margin-right: 2px; /* Adjust spacing between stars */
+}

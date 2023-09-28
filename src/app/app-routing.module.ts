@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './admin/home/home.component';
+import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './admin/product-list/product-list.component';
 import { ProductComponent } from './admin/product/product.component';
-import { LoginComponent } from './admin/login/login.component';
+import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './auth-guard.service';
 
 const routes: Routes = [
-  { path: 'admin/home', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/product-list', component: ProductListComponent },
   { path: 'admin/product', component: ProductComponent },
