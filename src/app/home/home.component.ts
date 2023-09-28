@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  targetDate: Date = new Date('2023-09-18T00:00:00'); // Replace with your flash sale end date
+  targetDate: Date = new Date('2023-10-18T00:00:00'); // Replace with your flash sale end date
   countdown: string = '';
   products: any[] = [];
   pagObj = { page: 1, limit: 10, totalPages: 1, count: 0, search: '' };

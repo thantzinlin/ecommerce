@@ -107,10 +107,10 @@
 
 .add-to-cart-btn {
   position: absolute;
-  bottom: 76px;
+  bottom: 110px;
   left: 50%;
   transform: translateX(-50%);
-  display: none; /* Hide the button by default */
+  display: none;
 }
 
 .productcontainer:hover .add-to-cart-btn {
