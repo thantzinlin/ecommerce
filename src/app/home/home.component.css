@@ -111,6 +111,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: none;
+  width: 100%;
 }
 
 .productcontainer:hover .add-to-cart-btn {
