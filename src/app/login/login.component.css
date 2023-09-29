@@ -1,3 +1,14 @@
 .toast-center {
   text-align: center;
 }
+
+.custom-input {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  border-radius: 0; /* Optionally, remove border radius */
+}
+.custom-input:focus {
+  outline: none;
+}

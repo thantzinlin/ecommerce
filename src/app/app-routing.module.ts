@@ -6,18 +6,21 @@ import { ProductComponent } from './admin/product/product.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './auth-guard.service';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'admin/login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'admin/product-list', component: ProductListComponent },
   { path: 'admin/product', component: ProductComponent },
+  { path: 'register', component: RegisterComponent },
+
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuardService],
   },
-  { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({

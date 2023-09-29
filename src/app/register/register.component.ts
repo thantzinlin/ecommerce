@@ -5,15 +5,12 @@ import { ConfirmDialogComponent } from '../admin/common/confirm-dialog/confirm-d
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth.service';
-
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
-export class LoginComponent {
-  private isAuthenticated = false;
-
+export class RegisterComponent {
   user = {
     name: '',
     email: '',
@@ -26,7 +23,7 @@ export class LoginComponent {
     private authService: AuthService
   ) {}
 
-  async gologin() {
+  async goRegister() {
     try {
       this.user = {
         name: '',
@@ -34,7 +31,7 @@ export class LoginComponent {
         password: '',
       };
       const res: any = await this.apiservice
-        .post(`users/login`, this.user)
+        .post(`users/register`, this.user)
         .toPromise();
       if (res) {
         this.user = res.data;
@@ -42,13 +39,10 @@ export class LoginComponent {
         this.authService.login();
       }
     } catch (error) {
-      this.isAuthenticated = false;
+      // this.isAuthenticated = false;
       this.toast.error('Unauthorised Access.', 'Error');
 
-      console.error('An error occurred while Login', error);
+      console.error('An error occurred while Register', error);
     }
-  }
-  is_Authenticated(): boolean {
-    return this.isAuthenticated;
   }
 }
