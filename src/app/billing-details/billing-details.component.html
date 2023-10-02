@@ -1,0 +1,97 @@
+<div class="container mt-5">
+  <h1 class="text-center">Billing Details</h1>
+  <div class="row">
+    <div class="col-md-5">
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="billingInfo.name"
+            name="fullName"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Company Name(Optional)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="billingInfo.companyname"
+            name="fullName"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Town/City</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="billingInfo.city"
+            name="fullName"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="billingInfo.phone"
+            name="fullName"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            [(ngModel)]="billingInfo.email"
+            name="email"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label"
+            >Billing Address(Street,Apartment, floor, etc.)</label
+          >
+          <textarea
+            class="form-control"
+            id="address"
+            rows="4"
+            [(ngModel)]="billingInfo.billingAddress"
+            name="billingAddress"
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="cardNumber" class="form-label">Credit Card Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cardNumber"
+            [(ngModel)]="billingInfo.cardNumber"
+            name="cardNumber"
+            required
+          />
+        </div>
+
+        <!-- Add more billing fields as needed -->
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

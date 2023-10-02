@@ -22,6 +22,8 @@ import { HomeComponent } from './home/home.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
+import { CartComponent } from './cart/cart.component';
+import { BillingDetailsComponent } from './billing-details/billing-details.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { RegisterComponent } from './register/register.component';
     StarRatingComponent,
     FooterComponent,
     RegisterComponent,
+    CartComponent,
+    BillingDetailsComponent,
   ],
   imports: [
     NgImageSliderModule,

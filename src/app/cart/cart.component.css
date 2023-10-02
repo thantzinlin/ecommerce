@@ -1,0 +1,27 @@
+/* Remove table column borders */
+table.table {
+  border-collapse: collapse;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table.table th,
+table.table td {
+  border: none;
+  padding: 8px 12px;
+}
+
+/* Add shadow effect on hover */
+table.table tbody tr:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Style quantity input buttons */
+.input-group .btn {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.cart-summary {
+  border-radius: 4px;
+  border: 1.5px solid #000;
+}

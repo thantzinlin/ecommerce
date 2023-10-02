@@ -7,10 +7,15 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './auth-guard.service';
 import { RegisterComponent } from './register/register.component';
+import { CartComponent } from './cart/cart.component';
+import { BillingDetailsComponent } from './billing-details/billing-details.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'billing-details', component: BillingDetailsComponent },
+
   { path: 'admin/product-list', component: ProductListComponent },
   { path: 'admin/product', component: ProductComponent },
   { path: 'register', component: RegisterComponent },
