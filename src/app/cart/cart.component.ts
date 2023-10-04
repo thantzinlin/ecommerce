@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
   products = [
     {
       id: 1, // Unique identifier for the product
@@ -42,25 +43,22 @@ export class CartComponent {
   shippingFee = '5.0';
   couponApplied: boolean = false;
   couponDiscount: number = 50;
-  constructor(private router: Router) {}
+  cart: any;
+  constructor(private router: Router, private cartservice: CartService) {}
+  ngOnInit(): void {
+    this.cart = this.cartservice.getCart();
+  }
   applyCoupon() {
-    // Simulate a coupon validation process (replace with your actual logic)
     if (this.couponCode === 'COUPON123') {
       this.couponApplied = true;
-      // Calculate the discount based on your coupon logic
-      // For example, you can set a fixed discount or percentage off
-      // For this example, we use a fixed 10% discount
       this.applyCouponDiscount();
     } else {
       this.couponApplied = false;
-      // Handle invalid coupon or display a message to the user
-      // For this example, we'll reset the discount
       this.resetCouponDiscount();
     }
   }
 
   applyCouponDiscount() {
-    // Calculate and apply the discount to each product subtotal
     this.products.forEach((product) => {
       const discountAmount = (product.price * this.couponDiscount) / 100;
       product.subtotal = (product.price - discountAmount) * product.quantity;
@@ -68,7 +66,6 @@ export class CartComponent {
   }
 
   resetCouponDiscount() {
-    // Reset the discount by recalculating the product subtotals without the coupon
     this.products.forEach((product) => {
       product.subtotal = product.price * product.quantity;
     });

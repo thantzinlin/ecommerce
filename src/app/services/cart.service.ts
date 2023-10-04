@@ -33,4 +33,9 @@ export class CartService {
       }
     }
   }
+
+  getProductQuantityInCart(product: Product) {
+    const cartProduct = this.cart.find((p) => p.id === product.id);
+    return cartProduct ? cartProduct.quantity : 0;
+  }
 }

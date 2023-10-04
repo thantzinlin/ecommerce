@@ -9,11 +9,14 @@ import { AuthGuardService } from './auth-guard.service';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { BillingDetailsComponent } from './billing-details/billing-details.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'product-details', component: ProductDetailsComponent },
+
   { path: 'billing-details', component: BillingDetailsComponent },
 
   { path: 'admin/product-list', component: ProductListComponent },

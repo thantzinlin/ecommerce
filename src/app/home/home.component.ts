@@ -42,13 +42,53 @@ export class HomeComponent implements OnInit {
       quantity: 1,
       // subtotal: 9.99,
     },
+    {
+      id: 4,
+      name: 'Camera',
+      description: 'Yet another product description.',
+      price: 9.99,
+      image: 'assets/images/img3.jpg',
+      quantity: 1,
+      // subtotal: 9.99,
+    },
+    {
+      id: 5,
+      name: 'Camera',
+      description: 'Yet another product description.',
+      price: 9.99,
+      image: 'assets/images/img3.jpg',
+      quantity: 1,
+      // subtotal: 9.99,
+    },
+    {
+      id: 6,
+      name: 'Camera',
+      description: 'Yet another product description.',
+      price: 9.99,
+      image: 'assets/images/img3.jpg',
+      quantity: 1,
+      // subtotal: 9.99,
+    },
+    {
+      id: 7,
+      name: 'Camera',
+      description: 'Yet another product description.',
+      price: 9.99,
+      image: 'assets/images/img3.jpg',
+      quantity: 1,
+      // subtotal: 9.99,
+    },
+    {
+      id: 8,
+      name: 'Camera',
+      description: 'Yet another product description.',
+      price: 9.99,
+      image: 'assets/images/img3.jpg',
+      quantity: 1,
+      // subtotal: 9.99,
+    },
   ];
-  constructor(
-    private apiservice: ApiService,
-    private router: Router,
-    private toast: ToastrService,
-    private cartService: CartService
-  ) {}
+  constructor(private router: Router, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.updateCountdown();
@@ -87,63 +127,40 @@ export class HomeComponent implements OnInit {
   }
   imageObject = [
     {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+      image: 'assets/images/img16.jpg',
+      thumbImage: 'assets/images/img16.jpg',
       title: 'Hummingbirds are amazing creatures',
     },
     {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
+      image: 'assets/images/img17.jpg',
+      thumbImage: 'assets/images/img17.jpg',
     },
     {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
-      title: 'Example with title.',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
-      title: 'Hummingbirds are amazing creatures',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
+      image: 'assets/images/img18.jpg',
+      thumbImage: 'assets/images/img18.jpg',
       title: 'Example two with title.',
     },
   ];
 
-  async fetchProducts() {
-    try {
-      const res: any = await this.apiservice
-        .getAll(`product/getall`, this.pagObj)
-        .toPromise();
-      if (res) {
-        this.products = res.data;
-        this.pagObj.totalPages = res.totalPages;
-        this.pagObj.count = res.count;
-      }
-    } catch (error) {
-      console.error('An error occurred while fetching products:', error);
-    }
-  }
+  // async fetchProducts() {
+  //   try {
+  //     const res: any = await this.apiservice
+  //       .getAll(`product/getall`, this.pagObj)
+  //       .toPromise();
+  //     if (res) {
+  //       this.products = res.data;
+  //       this.pagObj.totalPages = res.totalPages;
+  //       this.pagObj.count = res.count;
+  //     }
+  //   } catch (error) {
+  //     console.error('An error occurred while fetching products:', error);
+  //   }
+  // }
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
+  }
+  productInCart(product: any): number {
+    return this.cartService.getProductQuantityInCart(product);
   }
 }

@@ -43,7 +43,6 @@
     </div>
     <div class="col-sm-9">
       <ng-image-slider
-        #nav
         [images]="imageObject"
         [infinite]="true"
         [autoSlide]="1"
@@ -82,17 +81,23 @@
     </div>
     <h1 class="my-4"></h1>
     <div class="row">
-      <div *ngFor="let product of products" class="product-card">
-        <div class="col-md-2">
+      <div *ngFor="let product of products" class="col-md-2">
+        <div class="product-card">
           <div class="productcontainer mb-4 position-relative">
             <div class="images">
-              <img [src]="product.image" class="card-img" alt="Product Image" />
+              <a [routerLink]="'/product-details'">
+                <img [src]="product.image" class="card-img" alt="Product Image"
+              /></a>
               <button
                 class="btn btn-primary btn-sm add-to-cart-btn"
                 (click)="addToCart(product)"
               >
                 Add to Cart
               </button>
+              <!-- Display the quantity for this product -->
+              <span *ngIf="productInCart(product)" class="cart-quantity">{{
+                productInCart(product)
+              }}</span>
             </div>
             <div>
               <h5 class="product-title">{{ product.name }}</h5>
