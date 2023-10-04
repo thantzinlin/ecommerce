@@ -2,8 +2,6 @@ import { Product } from '../model/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import * as $ from 'jquery';
-import 'lightslider';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
