@@ -89,3 +89,31 @@ label.radio input:checked + span {
 .icon-hover:hover i {
   color: #3b71ca !important;
 }
+
+/* Styling for radio buttons */
+.form-check-input:checked + .form-check-label::before {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Styling for color boxes */
+.color-box {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.blue {
+  background-color: #007bff;
+}
+
+.green {
+  background-color: #28a745;
+}
+
+.red {
+  background-color: #dc3545;
+}
