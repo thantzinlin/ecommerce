@@ -30,15 +30,14 @@
   font-weight: 400;
   line-height: 21px; /* 150% */
 }
-
+/* 
 .colours {
   color: #000;
 
-  /* Heading/20PX Regular */
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 100% */
+  line-height: 20px; 
   letter-spacing: 0.6px;
 }
 
@@ -52,19 +51,20 @@ label.radio input {
   visibility: hidden;
   pointer-events: none;
 }
-label.radio span {  
+label.radio span {
   padding: 2px 9px;
   border: 1px solid #6b6464;
   display: inline-block;
   color: #ff0000;
   border-radius: 3px;
   text-transform: uppercase;
+  margin-left: 15px;
 }
 label.radio input:checked + span {
   border-color: #ff0000;
   background-color: #ff0000;
   color: #fff;
-}
+} */
 /* .btn-danger {
   background-color: #ff0000 !important;
   border-color: #ff0000 !important;
@@ -79,3 +79,13 @@ label.radio input:checked + span {
 .cart i {
   margin-right: 10px;
 } */
+
+.icon-hover:hover {
+  border-color: #3b71ca !important;
+  background-color: white !important;
+  color: #3b71ca !important;
+}
+
+.icon-hover:hover i {
+  color: #3b71ca !important;
+}

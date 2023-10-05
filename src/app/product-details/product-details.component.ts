@@ -51,4 +51,16 @@ export class ProductDetailsComponent implements OnInit {
     // Redirect to the cart page or show a success message
     this.router.navigate(['/cart']);
   }
+
+  counter: number = 0;
+
+  increaseCount() {
+    this.counter++;
+  }
+
+  decreaseCount() {
+    if (this.counter > 0) {
+      this.counter--;
+    }
+  }
 }
