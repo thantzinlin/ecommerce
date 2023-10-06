@@ -15,6 +15,7 @@ export class BillingDetailsComponent {
     phone: '',
     city: '',
     cardNumber: '',
+    isChecked: true,
     // Add more properties for other billing details
   };
 }
