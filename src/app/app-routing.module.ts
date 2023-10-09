@@ -10,11 +10,16 @@ import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { BillingDetailsComponent } from './billing-details/billing-details.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+
   { path: 'product-details', component: ProductDetailsComponent },
 
   { path: 'billing-details', component: BillingDetailsComponent },

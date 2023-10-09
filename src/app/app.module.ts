@@ -25,6 +25,8 @@ import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { BillingDetailsComponent } from './billing-details/billing-details.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     CartComponent,
     BillingDetailsComponent,
     ProductDetailsComponent,
+    AboutComponent,
+    ContactComponent,
   ],
   imports: [
     NgImageSliderModule,

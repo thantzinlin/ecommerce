@@ -13,4 +13,7 @@ export class NavbarComponent {
     this.authservice.logout();
     this.router.navigate(['/admin/login']);
   }
+  goAbout() {
+    this.router.navigate(['/about']);
+  }
 }
