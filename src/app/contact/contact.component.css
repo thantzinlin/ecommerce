@@ -1,0 +1,18 @@
+.contact {
+  color: var(--Text2, #000);
+
+  /* Title/14PX Regular */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 150% */
+}
+
+.textcontainer,
+.inputcontainer {
+  border-radius: 4px;
+  background: var(--Primary, #fff);
+
+  /* Categogy/5 */
+  box-shadow: 0px 1px 13px 0px rgba(0, 0, 0, 0.05);
+}
