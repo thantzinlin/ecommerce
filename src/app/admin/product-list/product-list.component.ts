@@ -1,9 +1,10 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
-import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
