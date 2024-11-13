@@ -29,17 +29,18 @@ export class LoginComponent {
 
   async gologin() {
     try {
-      this.user = {
-        name: '',
-        email: '',
-        password: '',
-      };
+      // this.user = {
+      //   name: '',
+      //   email: '',
+      //   password: '',
+      // };
       const res: any = await this.apiservice
-        .post(`users/login`, this.user)
+        .post(`auth/login`, this.user)
         .toPromise();
-      if (res) {
-        this.user = res.data;
-        this.router.navigate(['/dashboard']);
+      if (res.returncode === '200') {
+        localStorage.setItem('token', res.token);
+
+        this.router.navigate(['/home']);
         this.authService.login();
       }
     } catch (error) {

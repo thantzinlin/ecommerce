@@ -10,7 +10,8 @@ import { AuthService } from 'src/app/auth.service';
 export class NavbarComponent {
   constructor(private authservice: AuthService, private router: Router) {}
   logout() {
-    this.authservice.logout();
+    // this.authservice.logout();
+    localStorage.removeItem('token');
     this.router.navigate(['/admin/login']);
   }
   goAbout() {

@@ -13,6 +13,7 @@ export class ProductDetailsComponent implements OnInit {
   product: any = {};
   relatedProducts!: Product[];
   cart: any = {};
+  productId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -24,9 +25,9 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // Get the product ID from the route parameters
-    const productId = this.route.snapshot.params['id'];
+    this.productId = this.route.snapshot.params['id'];
 
-    this.product = this.getProductByID(productId);
+    this.product = this.getProductByID(this.productId);
 
     // this.relatedProducts = this.productService.getRelatedProducts(productId);
   }
@@ -41,44 +42,26 @@ export class ProductDetailsComponent implements OnInit {
         this.product = res.data;
       }
     } catch (error) {
-      this.toast.error('An error occurred while fetching product', 'Error');
+      //  this.toast.error('An error occurred while fetching product', 'Error');
 
       console.error('An error occurred while fetching products', error);
     }
   }
   async addToCart(product: Product) {
-    //  this.cartService.addToCart(product);
+    const cartData = {
+      userId: '672c3d1cfa9d501bfe5a99f5',
+      products: [
+        {
+          productId: this.productId,
+          quantity: 1,
+        },
+      ],
+    };
 
-    // this.router.navigate(['/cart']);
+    const res: any = await this.apiService.post(`cart`, cartData).toPromise();
 
-    try {
-      // this.cart ={
-      //   userID =
-      // }
-      const mockData = {
-        userId: '672c3d1cfa9d501bfe5a99f5',
-        products: [
-          {
-            productId: '672c3e86fa9d501bfe5a9a49',
-            quantity: 1,
-          },
-          {
-            productId: '672c3e86fa9d501bfe5a9a49',
-            quantity: 2,
-          },
-        ],
-      };
-
-      const res: any = await this.apiService.post(`cart`, mockData).toPromise();
-
-      if (res) {
-        // this.cart = res.data;
-        this.toast.error('Add to Cart Success', 'Success');
-      }
-    } catch (error) {
-      this.toast.error('An error occurred while fetching product', 'Error');
-
-      console.error('An error occurred while fetching products', error);
+    if (res) {
+      this.toast.error('Add to Cart Success', 'Success');
     }
   }
 
