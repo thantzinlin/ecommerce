@@ -5,6 +5,8 @@
 html,
 body {
   height: 100%;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Helvetica Neue,
+    Helvetica, sans-serif !important;
 }
 body {
   margin: 0;

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProductComponent } from './admin/product/product.component';
 import { ProductListComponent } from './admin/product-list/product-list.component';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -17,7 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NgImageSliderModule } from 'ng-image-slider';
+// import { NgImageSliderModule } from 'ng-image-slider';
 import { HomeComponent } from './home/home.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { FooterComponent } from './footer/footer.component';
@@ -27,6 +27,7 @@ import { BillingDetailsComponent } from './billing-details/billing-details.compo
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { ImageSliderComponent } from './image-slider/image-slider.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +47,10 @@ import { ContactComponent } from './contact/contact.component';
     ProductDetailsComponent,
     AboutComponent,
     ContactComponent,
+    ImageSliderComponent,
   ],
   imports: [
-    NgImageSliderModule,
+    // NgImageSliderModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -58,6 +60,7 @@ import { ContactComponent } from './contact/contact.component';
     MatDialogModule,
     ToastrModule.forRoot(),
     MatPaginatorModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

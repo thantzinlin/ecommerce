@@ -1,124 +1,57 @@
 <div class="container mt-2 mb-3">
   <div class="row mt-5">
     <div class="col-md-5 pr-2">
-      <div class="card">
+      <div class="card product-card">
         <div class="demo">
-          <!-- <ul id="lightSlider">
-            <li data-thumb="https://i.imgur.com/KZpuufK.jpg">
-              <img src="https://i.imgur.com/KZpuufK.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/GwiUmQA.jpg">
-              <img src="https://i.imgur.com/GwiUmQA.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/DhKkTrG.jpg">
-              <img src="https://i.imgur.com/DhKkTrG.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/kYWqL7k.jpg">
-              <img src="https://i.imgur.com/kYWqL7k.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/c9uUysL.jpg">
-              <img src="https://i.imgur.com/c9uUysL.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/KZpuufK.jpg">
-              <img src="https://i.imgur.com/KZpuufK.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/GwiUmQA.jpg">
-              <img src="https://i.imgur.com/GwiUmQA.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/DhKkTrG.jpg">
-              <img src="https://i.imgur.com/DhKkTrG.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/kYWqL7k.jpg">
-              <img src="https://i.imgur.com/kYWqL7k.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/c9uUysL.jpg">
-              <img src="https://i.imgur.com/c9uUysL.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/KZpuufK.jpg">
-              <img src="https://i.imgur.com/KZpuufK.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/GwiUmQA.jpg">
-              <img src="https://i.imgur.com/GwiUmQA.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/DhKkTrG.jpg">
-              <img src="https://i.imgur.com/DhKkTrG.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/kYWqL7k.jpg">
-              <img src="https://i.imgur.com/kYWqL7k.jpg" />
-            </li>
-            <li data-thumb="https://i.imgur.com/c9uUysL.jpg">
-              <img src="https://i.imgur.com/c9uUysL.jpg" />
-            </li>
-          </ul> -->
-          <img src="https://i.imgur.com/KZpuufK.jpg" style="width: 100%" />
+          <img
+            [src]="product.images ? product.images[0] : ''"
+            style="width: 100%"
+            alt="Product Image"
+            class="product-image"
+          />
+          <!-- Hover overlay -->
+          <div class="hover-overlay">
+            <img
+              *ngFor="let img of product.images.slice(1)"
+              [src]="img"
+              alt="Additional Product Image"
+              class="overlay-image"
+            />
+          </div>
         </div>
         <div class="mt-3">
-          <ng-image-slider
-            [images]="imageObject"
-            [infinite]="true"
-            [imageSize]="{ width: '24%', height: 100 }"
-            slideImage="1"
-            [animationSpeed]="1"
-          ></ng-image-slider>
+          <!-- Optional image slider can go here -->
         </div>
       </div>
     </div>
     <div class="details col-md-5">
-      <h3 class="product-title">Havic HV G-92 Gamepad</h3>
-      <div class="rating">
+      <h2 class="product-title">{{ product.name }}</h2>
+      <!-- <div class="rating">
         <div class="stars">
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>&nbsp;&nbsp;
-          <span class="review-no">( 41 reviews )</span>
+          <span
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            class="fa fa-star"
+            [class.checked]="star <= product.averageRating"
+          ></span>
+          &nbsp;&nbsp;
+          <span class="review-no">({{ product.totalReviews }} reviews)</span>
         </div>
-      </div>
-      <h4 class="price">Price: <span>18000 MMK</span></h4>
-
-      <p class="description">
-        Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem
-        sem! Repudiandae et! Massa senectus enim minim sociosqu delectus
-        posuere.
-      </p>
-      <hr class="my-4" />
-      <!-- <div class="color">
-        <span>Color:</span>
-        <label class="radiocolor">
-          <input type="radio" name="size" value="S" checked />
-        </label>
-        <label class="radiocolor">
-          <input type="radio" name="size" value="M" />
-        </label>
-        <label class="radiocolor">
-          <input type="radio" name="size" value="L" />
-        </label>
-        <label class="radiocolor">
-          <input type="radio" name="size" value="XL" />
-        </label>
-        <label class="radiocolor">
-          <input type="radio" name="size" value="XXL" />
-        </label>
-      </div>
-      <div class="sizes">
-        <span>Size:</span>
-        <label class="radio">
-          <input type="radio" name="size" value="S" checked /> <span>S</span>
-        </label>
-        <label class="radio">
-          <input type="radio" name="size" value="M" /> <span>M</span>
-        </label>
-        <label class="radio">
-          <input type="radio" name="size" value="L" /> <span>L</span>
-        </label>
-        <label class="radio">
-          <input type="radio" name="size" value="XL" /> <span>XL</span>
-        </label>
-        <label class="radio">
-          <input type="radio" name="size" value="XXL" /> <span>XXL</span>
-        </label>
       </div> -->
+      <div class="d-flex align-items-center">
+        <app-star-rating
+          [rating]="product.averageRating"
+          [starColor]="'#FFAD33'"
+          [starFill]="'#FFAD33'"
+        ></app-star-rating>
+        <span *ngIf="product.totalReviews > 0" class="text-muted">
+          ({{ product.totalReviews }})
+        </span>
+      </div>
+      <h4 class="price">
+        Price: <span>{{ product.price }} MMK</span>
+      </h4>
+      <p class="description">{{ product.description }}</p>
+      <hr class="my-4" />
 
       <div class="col-md-12 mt-4">
         <div class="form-group row">
@@ -127,21 +60,9 @@
               <span class="font-weight-bold">Color</span>
             </div>
             <div class="my-color">
-              <label class="radio">
-                <input type="radio" name="gender" value="MALE" checked />
-                <span class="red"></span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="gender" value="FEMALE" />
-                <span class="blue"></span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="gender" value="FEMALE" />
-                <span class="green"></span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="gender" value="FEMALE" />
-                <span class="orange"></span>
+              <label class="radio" *ngFor="let color of product.colors">
+                <input type="radio" name="color" [value]="color" />
+                <span [ngClass]="color"></span>
               </label>
             </div>
           </div>
@@ -152,20 +73,15 @@
                 class="form-select border border-secondary"
                 style="height: 35px"
               >
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
+                <option *ngFor="let size of product.sizes">{{ size }}</option>
               </select>
             </div>
-            <!-- col.// -->
             <div class="col-md-4 col-6">
               <label class="mb-2 d-block">Quantity</label>
               <div class="input-group mb-3" style="width: 170px">
                 <button
                   class="btn btn-white border border-secondary px-3"
                   type="button"
-                  id="button-addon1"
-                  data-mdb-ripple-color="dark"
                   (click)="decreaseCount()"
                 >
                   <i class="fas fa-minus"></i>
@@ -173,15 +89,11 @@
                 <input
                   type="text"
                   class="form-control text-center border border-secondary"
-                  aria-label="Example text with button addon"
-                  aria-describedby="button-addon1"
                   [(ngModel)]="counter"
                 />
                 <button
                   class="btn btn-white border border-secondary px-3"
                   type="button"
-                  id="button-addon2"
-                  data-mdb-ripple-color="dark"
                   (click)="increaseCount()"
                 >
                   <i class="fas fa-plus"></i>
@@ -192,8 +104,13 @@
           <div
             class="col-md-8 d-flex justify-content-between align-items-center text-center"
           >
-            <button class="btn btn-warning shadow-0">Buy now</button>
-            <button class="btn btn-primary shadow-0">
+            <button class="btn btn-warning shadow-0" (click)="buyNow()">
+              Buy now
+            </button>
+            <button
+              class="btn btn-primary shadow-0"
+              (click)="addToCart(product)"
+            >
               <i class="me-1 fa fa-shopping-basket"></i> Add to cart
             </button>
             <button
@@ -202,32 +119,6 @@
               <i class="me-1 fa fa-heart"></i> Save
             </button>
           </div>
-
-          <!-- <div class="col-md-4"> -->
-          <!-- <button
-              class="btn btn-danger"
-              (click)="increaseCount()"
-              type="button"
-            >
-              Buy Now
-            </button> -->
-          <!-- &nbsp;&nbsp;
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="42"
-              height="42"
-              viewBox="0 0 32 32"
-              fill="none"
-            >
-              <path
-                d="M11 7C8.239 7 6 9.216 6 11.95C6 14.157 6.875 19.395 15.488 24.69C15.6423 24.7839 15.8194 24.8335 16 24.8335C16.1806 24.8335 16.3577 24.7839 16.512 24.69C25.125 19.395 26 14.157 26 11.95C26 9.216 23.761 7 21 7C18.239 7 16 10 16 10C16 10 13.761 7 11 7Z"
-                stroke="red"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg> -->
-          <!-- </div> -->
         </div>
       </div>
     </div>

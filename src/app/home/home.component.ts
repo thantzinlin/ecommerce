@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
 import { Product } from '../model/product.model';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,6 +15,21 @@ export class HomeComponent implements OnInit {
   countdown: string = '';
   products: any[] = [];
   pagObj = { page: 1, limit: 10, totalPages: 1, count: 0, search: '' };
+
+  sliderImages = [
+    {
+      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1727430920/cld-sample-5.jpg',
+      alt: 'Image 1',
+    },
+    {
+      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1727430908/sample.jpg',
+      alt: 'Image 2',
+    },
+    {
+      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1727430919/cld-sample-4.jpg',
+      alt: 'Image 3',
+    },
+  ];
   // products: Product[] = [
   //   {
   //     id: 1,
@@ -165,9 +181,10 @@ export class HomeComponent implements OnInit {
 
   async fetchProducts() {
     try {
-      const res: any = await this.apiservice.get(
-        `products?page=1&perPage=10&search=`
-      ).subscribe;
+      const res: any = await this.apiservice
+        .get(`products?page=1&perPage=10&search=`)
+        .toPromise();
+
       if (res) {
         this.products = res.data;
       }
@@ -177,6 +194,18 @@ export class HomeComponent implements OnInit {
       console.error('An error occurred while fetching products', error);
     }
   }
+
+  // etData(): void {
+  //   this.apiservice.get('products?page=1&perPage=10&search=').subscribe(
+  //     (data) => {
+  //       this.products = data;
+  //       console.log(data);
+  //     },
+  //     (error) => {
+  //       console.error('Error:', error);
+  //     }
+  //   );
+  // }
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);

@@ -1,6 +1,6 @@
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-
 import { ApiService } from 'src/app/api.service';
 import { ConfirmDialogComponent } from '../admin/common/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';

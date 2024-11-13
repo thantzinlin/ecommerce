@@ -1,0 +1,43 @@
+<div *ngIf="images.length > 0" class="carousel slide" data-bs-ride="carousel">
+  <!-- Carousel Indicators -->
+  <div class="carousel-indicators">
+    <button
+      *ngFor="let image of images; let i = index"
+      type="button"
+      [attr.data-bs-slide-to]="i"
+      [class.active]="i === activeIndex"
+      (click)="setSlide(i)"
+      [attr.aria-label]="'Slide ' + (i + 1)"
+      [style.backgroundImage]="'url(' + image.url + ')'"
+      class="indicator-button"
+    ></button>
+  </div>
+  <!-- Carousel Inner (Images) -->
+  <div class="carousel-inner">
+    <div
+      *ngFor="let image of images; let i = index"
+      class="carousel-item"
+      [class.active]="i === activeIndex"
+    >
+      <img
+        [src]="image.url"
+        class="d-block w-100"
+        [style.max-height]="imageMaxHeight + 'px'"
+        [alt]="image.alt || 'Image ' + (i + 1)"
+      />
+    </div>
+  </div>
+
+  <!-- Carousel Controls -->
+  <button class="carousel-control-prev" type="button" (click)="prevSlide()">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" (click)="nextSlide()">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- No images available -->
+<div *ngIf="images.length === 0">No images available.</div>
