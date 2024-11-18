@@ -8,11 +8,6 @@ export class AuthService {
 
   constructor() {}
 
-  login() {
-    // Logic to perform login, set isAuthenticated to true upon successful login
-    this.isAuthenticated = true;
-  }
-
   logout() {
     this.isAuthenticated = false;
   }

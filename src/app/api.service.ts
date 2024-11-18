@@ -21,15 +21,18 @@ export class ApiService {
     const token = localStorage.getItem('token');
     if (token) {
       return new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    } else {
-      this.router.navigate(['/login']);
     }
     return new HttpHeaders();
   }
 
   private handleError = (error: any): Observable<never> => {
     console.error('An error occurred:', error);
-    this.toast.error(error.message, 'Error');
+    if (error.status === 401) {
+      this.router.navigate(['/login']);
+      this.toast.info('You need to log in to continue.', 'Info');
+    } else {
+      this.toast.error(error.message, 'Error');
+    }
     return throwError(() => new Error(error.message || 'Server error'));
   };
 

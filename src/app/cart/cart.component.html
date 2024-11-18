@@ -2,44 +2,63 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Product</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
+        <th class="bg-success text-white">Product</th>
+        <th class="bg-success text-white">Description</th>
+        <th class="text-end bg-success text-white">Price</th>
+        <th class="text-center bg-success text-white">Quantity</th>
+        <th class="text-end bg-success text-white">Subtotal</th>
+        <th class="bg-success"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of products; let i = index">
         <td>
           <img
-            [src]="product.image"
+            [src]="product.images[0]"
             alt="Product Image"
             class="img-thumbnail"
             style="max-width: 100px"
           />
           {{ product.name }}
         </td>
-        <td>{{ product.description }}</td>
-        <td>$ {{ product.price }}</td>
-        <td style="width: 7%">
-          <div class="input-group">
-            <input
-              type="number"
-              min="0"
-              class="form-control"
-              [ngModel]="product.quantity"
-              (ngModelChange)="updateQuantity($event, i)"
-            />
+        <td class="pt-5">{{ product.description }}</td>
+        <td class="pt-5 text-end">{{ formatAmount(product.price) }}</td>
+
+        <td style="width: 12%" class="pt-5">
+          <div class="d-flex align-items-center">
+            <button
+              class="btn btn-white border border-secondary px-2 me-1"
+              type="button"
+              (click)="decreaseQuantity(product)"
+              [disabled]="product.quantity <= 1"
+            >
+              <i class="fas fa-minus"></i>
+            </button>
+            <div>
+              <input
+                type="number"
+                min="1"
+                class="form-control text-center"
+                [(ngModel)]="product.quantity"
+                readonly
+              />
+            </div>
+
+            <button
+              class="btn btn-white border border-secondary px-2 ms-1"
+              type="button"
+              (click)="increaseQuantity(product)"
+            >
+              <i class="fas fa-plus"></i>
+            </button>
           </div>
         </td>
 
-        <td>{{ product.subtotal }} MMK</td>
-        <td>
-          <button
-            class="btn btn-danger btn-sm"
-            (click)="removeProduct(product)"
-          >
+        <td class="pt-5 text-end">
+          {{ formatAmount(product.quantity * product.price) }} MMK
+        </td>
+        <td class="pt-5">
+          <button class="btn btn-danger btn-sm" (click)="removeItem(product)">
             <i class="bi bi-trash"></i>
           </button>
         </td>
@@ -48,7 +67,9 @@
   </table>
   <div class="row">
     <div class="col-12 mb-5">
-      <button class="btn btn-outline-secondary">Return to shop</button>
+      <button class="btn btn-outline-secondary" [routerLink]="'/home'">
+        Return to shop
+      </button>
     </div>
 
     <div class="col-md-3">
@@ -63,13 +84,11 @@
     </div>
     <div class="col-md-2">
       <div class="input-group">
-        <button class="btn btn-success" (click)="applyCoupon()">
-          Apply Coupon
-        </button>
+        <button class="btn btn-success">Apply Coupon</button>
       </div>
     </div>
     <div class="col-md-5 offset-md-2 cart-summary mb-4 p-5">
-      <h2>Cart Total</h2>
+      <h2 class="text-center">Order Summary</h2>
       <div class="row">
         <div class="col-md-6">
           <p>Total Items:</p>
@@ -82,21 +101,21 @@
           <p>Subtotal:</p>
         </div>
         <div class="col-md-6 text-end">
-          <p>{{ getTotalPrice() }} MMK</p>
+          <p>{{ formatAmount(getTotalPrice()) }} MMK</p>
         </div>
         <hr />
         <div class="col-md-6">
           <p>Shipping:</p>
         </div>
         <div class="col-md-6 text-end">
-          <p>{{ shippingFee }}</p>
+          <p>{{ formatAmount(shippingFee) }} MMK</p>
         </div>
         <hr />
         <div class="col-md-6">
           <p>Grand Total:</p>
         </div>
         <div class="col-md-6 text-end">
-          <p>{{ getGrandTotalPrice() }}</p>
+          <p>{{ formatAmount(getGrandTotalPrice()) }} MMK</p>
         </div>
         <div class="col-12 d-flex justify-content-center align-items-center">
           <a href="#" class="btn btn-success" [routerLink]="'/billing-details'"

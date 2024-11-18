@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
 import { Product } from '../model/product.model';
 import { FormsModule } from '@angular/forms';
+import { Action } from 'rxjs/internal/scheduler/Action';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -30,93 +31,33 @@ export class HomeComponent implements OnInit {
       alt: 'Image 3',
     },
   ];
-  // products: Product[] = [
-  //   {
-  //     id: 1,
-  //     name: 'Coca-Cola',
-  //     description: 'Product description goes here.',
-  //     price: 19.99,
-  //     image: 'assets/images/img1.jpg',
-  //     quantity: 1,
-  //     // subtotal: 19.99,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Product 2',
-  //     description: 'Another product description.',
-  //     price: 29.99,
-  //     image: 'assets/images/img2.jpg',
-  //     quantity: 1,
-  //     // subtotal: 29.99,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Camera',
-  //     description: 'Yet another product description.',
-  //     price: 9.99,
-  //     image: 'assets/images/img3.jpg',
-  //     quantity: 1,
-  //     // subtotal: 9.99,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Camera',
-  //     description: 'Yet another product description.',
-  //     price: 9.99,
-  //     image: 'assets/images/img3.jpg',
-  //     quantity: 1,
-  //     // subtotal: 9.99,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Camera',
-  //     description: 'Yet another product description.',
-  //     price: 9.99,
-  //     image: 'assets/images/img3.jpg',
-  //     quantity: 1,
-  //     // subtotal: 9.99,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Camera',
-  //     description: 'Yet another product description.',
-  //     price: 9.99,
-  //     image: 'assets/images/img3.jpg',
-  //     quantity: 1,
-  //     // subtotal: 9.99,
-  //   },
-  //   {
-  //     id: 7,
-  //     name: 'Camera',
-  //     description: 'Yet another product description.',
-  //     price: 9.99,
-  //     image: 'assets/images/img3.jpg',
-  //     quantity: 1,
-  //     // subtotal: 9.99,
-  //   },
-  //   {
-  //     id: 8,
-  //     name: 'Camera',
-  //     description: 'Yet another product description.',
-  //     price: 9.99,
-  //     image: 'assets/images/img3.jpg',
-  //     quantity: 1,
-  //     // subtotal: 9.99,
-  //   },
-  // ];
+
   constructor(
     private router: Router,
     private cartService: CartService,
-    private apiservice: ApiService,
+    private apiService: ApiService,
     private toast: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.updateCountdown();
     this.fetchProducts();
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.getCartItemCount();
+    }
     setInterval(() => {
       this.updateCountdown();
     }, 1000);
+  }
+
+  async getCartItemCount() {
+    const res: any = await this.apiService.get(`cart/count`).toPromise();
+
+    if (res.returncode === '200') {
+      this.cartService.updateCart(res.data);
+    }
   }
 
   updateCountdown() {
@@ -163,54 +104,27 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  // async fetchProducts() {
-  //   try {
-  //     const res: any = this.apiservice.get(
-  //       `products?page=1&perPage=10&search=`
-  //     );
-  //     if (res) {
-  //       console.log('response data:' + JSON.stringify(res));
-  //       this.products = res.data;
-  //       this.pagObj.totalPages = res.totalPages;
-  //       this.pagObj.count = res.count;
-  //     }
-  //   } catch (error) {
-  //     console.error('An error occurred while fetching products:', error);
-  //   }
-  // }
-
   async fetchProducts() {
-    try {
-      const res: any = await this.apiservice
-        .get(`products?page=1&perPage=10&search=`)
-        .toPromise();
+    const res: any = await this.apiService
+      .get(`products?page=1&perPage=10&search=`)
+      .toPromise();
 
-      if (res) {
-        this.products = res.data;
-      }
-    } catch (error) {
-      this.toast.error('An error occurred while fetching products', 'Error');
-
-      console.error('An error occurred while fetching products', error);
+    if (res) {
+      this.products = res.data;
     }
   }
 
-  // etData(): void {
-  //   this.apiservice.get('products?page=1&perPage=10&search=').subscribe(
-  //     (data) => {
-  //       this.products = data;
-  //       console.log(data);
-  //     },
-  //     (error) => {
-  //       console.error('Error:', error);
-  //     }
-  //   );
+  async addToCart(product: Product) {
+    const cart = { productId: product._id, quantity: 1, action: 'increase' };
+    const res: any = await this.apiService.post(`cart`, cart).toPromise();
+    if (res.returncode === '200') {
+      this.cartService.updateCart(res.data);
+      this.toast.success('Item successfully added to your cart!', 'Success');
+    }
+    // this.socket.emit('addToCart', '672c3d1cfa9d501bfe5a99f5', products);
+    // this.cartService.addToCart(product);
+  }
+  // productInCart(product: any): number {
+  //   return this.cartService.getProductQuantityInCart(product);
   // }
-
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
-  }
-  productInCart(product: any): number {
-    return this.cartService.getProductQuantityInCart(product);
-  }
 }

@@ -12,7 +12,7 @@
           <!-- Hover overlay -->
           <div class="hover-overlay">
             <img
-              *ngFor="let img of product.images.slice(1)"
+              *ngFor="let img of product?.images?.slice(1)"
               [src]="img"
               alt="Additional Product Image"
               class="overlay-image"
@@ -83,13 +83,15 @@
                   class="btn btn-white border border-secondary px-3"
                   type="button"
                   (click)="decreaseCount()"
+                  [disabled]="quantity <= 1"
                 >
                   <i class="fas fa-minus"></i>
                 </button>
                 <input
                   type="text"
                   class="form-control text-center border border-secondary"
-                  [(ngModel)]="counter"
+                  [(ngModel)]="quantity"
+                  readonly
                 />
                 <button
                   class="btn btn-white border border-secondary px-3"

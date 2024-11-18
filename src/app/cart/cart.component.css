@@ -23,5 +23,5 @@ table.table tbody tr:hover {
 
 .cart-summary {
   border-radius: 4px;
-  border: 1.5px solid #000;
+  border: 1.5px solid gray;
 }

@@ -96,14 +96,11 @@
                   alt="Product Image"
               /></a>
               <button
-                class="btn btn-primary btn-sm add-to-cart-btn"
+                class="btn btn-success btn-sm add-to-cart-btn"
                 (click)="addToCart(product)"
               >
                 Add to Cart
               </button>
-              <span *ngIf="productInCart(product)" class="cart-quantity">{{
-                productInCart(product)
-              }}</span>
             </div>
             <div>
               <h5 class="product-title">{{ product.name }}</h5>
@@ -155,7 +152,7 @@
               class="card-img"
               alt="Product 2"
             />
-            <button class="btn btn-primary btn-sm add-to-cart-btn">
+            <button class="btn btn-success btn-md add-to-cart-btn">
               Add to Cart
             </button>
           </div>

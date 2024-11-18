@@ -1,58 +1,7 @@
 <div class="container">
-  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" routerLink="/">My E-commerce Store</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/home" routerLinkActive="active"
-            >Home</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/home" routerLinkActive="active"
-            >Home</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/admin/product-list"
-            routerLinkActive="active"
-            >Products</a
-          >
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about" routerLinkActive="active"
-            >About</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav> -->
   <nav class="navbar navbar-expand-md bg-body-tertiary">
     <div class="container-xl">
-      <a class="navbar-brand" href="#">
-        <!-- <img
-          src="https://codingyaar.com/wp-content/uploads/coding-yaar-logo.png"
-          alt=""
-        /> -->
-        MY SHOP
-      </a>
+      <a class="navbar-brand" href="#"> MY SHOP </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -82,26 +31,6 @@
             <a class="nav-link" routerLink="/about">About</a>
           </li>
 
-          <!-- <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li> -->
-
           <li class="nav-item" style="width: 100px; margin-right: 100px">
             <a class="nav-link" routerLink="register">Sign Up</a>
           </li>
@@ -116,16 +45,25 @@
             </form>
             <div class="user-icons d-flex mb-2">
               <div class="wishlist"><i class="bi bi-heart"></i></div>
+              <!-- navbar.component.html -->
               <div class="cart">
                 <a [routerLink]="'/cart'" class="cart">
                   <i class="bi bi-cart3"></i>
+                  <span *ngIf="cartItemCount > 0" class="badge">{{
+                    cartItemCount
+                  }}</span>
                 </a>
               </div>
+
               <div class="profile-icon">
                 <i class="bi bi-person"></i>
                 <div class="profile-info">
-                  <a href="#" class="list-group-item list-group-item-action"
-                    ><svg
+                  <div
+                    class="list-group-item list-group-item-action"
+                    (click)="manageAccount()"
+                  >
+                    <!-- Manage My Account Icon -->
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
                       height="32"
@@ -146,10 +84,15 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       /></svg
-                    >&nbsp;&nbsp;Manage My Account</a
+                    >&nbsp;&nbsp;Manage My Account
+                  </div>
+
+                  <div
+                    class="list-group-item list-group-item-action"
+                    (click)="viewOrders()"
                   >
-                  <a href="#" class="list-group-item list-group-item-action"
-                    ><svg
+                    <!-- My Order Icon -->
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
@@ -169,41 +112,44 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       /></svg
-                    >&nbsp;&nbsp;&nbsp;My Order</a
+                    >&nbsp;&nbsp;&nbsp;My Order
+                  </div>
+
+                  <div
+                    class="list-group-item list-group-item-action"
+                    (click)="handleCancellations()"
                   >
-                  <a href="#" class="list-group-item list-group-item-action"
-                    ><svg
+                    <!-- My Cancellations Icon -->
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_894_458)">
-                        <path
-                          d="M8 16L12 12M16 8L11.9992 12M11.9992 12L8 8M12 12L16 16"
-                          stroke="#FAFAFA"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="11.25"
-                          stroke="white"
-                          stroke-width="1.5"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_894_458">
-                          <rect width="24" height="24" fill="white" />
-                        </clipPath>
-                      </defs></svg
-                    >&nbsp;&nbsp;&nbsp;My Cancellations</a
+                      <path
+                        d="M8 16L12 12M16 8L11.9992 12M11.9992 12L8 8M12 12L16 16"
+                        stroke="#FAFAFA"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="11.25"
+                        stroke="white"
+                        stroke-width="1.5"
+                      /></svg
+                    >&nbsp;&nbsp;&nbsp;My Cancellations
+                  </div>
+
+                  <div
+                    class="list-group-item list-group-item-action"
+                    (click)="logout()"
                   >
-                  <a href="#" class="list-group-item list-group-item-action"
-                    ><svg
+                    <!-- My Reviews Icon -->
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
@@ -215,10 +161,15 @@
                         stroke="#FAFAFA"
                         stroke-width="1.5"
                       /></svg
-                    >&nbsp;&nbsp;&nbsp;My Reviews</a
+                    >&nbsp;&nbsp;&nbsp;My Reviews
+                  </div>
+
+                  <div
+                    class="list-group-item list-group-item-action"
+                    (click)="logout()"
                   >
-                  <a href="#" class="list-group-item list-group-item-action"
-                    ><svg
+                    <!-- Log Out Icon -->
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
@@ -232,8 +183,8 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       /></svg
-                    >&nbsp;&nbsp;&nbsp;Log Out</a
-                  >
+                    >&nbsp;&nbsp;&nbsp;Log Out
+                  </div>
                 </div>
               </div>
             </div>

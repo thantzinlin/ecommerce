@@ -29,11 +29,6 @@ export class LoginComponent {
 
   async gologin() {
     try {
-      // this.user = {
-      //   name: '',
-      //   email: '',
-      //   password: '',
-      // };
       const res: any = await this.apiservice
         .post(`auth/login`, this.user)
         .toPromise();
@@ -41,7 +36,7 @@ export class LoginComponent {
         localStorage.setItem('token', res.token);
 
         this.router.navigate(['/home']);
-        this.authService.login();
+        //  this.authService.login();
       }
     } catch (error) {
       this.isAuthenticated = false;
@@ -49,8 +44,5 @@ export class LoginComponent {
 
       console.error('An error occurred while Login', error);
     }
-  }
-  is_Authenticated(): boolean {
-    return this.isAuthenticated;
   }
 }

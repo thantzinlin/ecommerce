@@ -37,7 +37,6 @@ export class RegisterComponent {
       if (res) {
         this.user = res.data;
         this.router.navigate(['/dashboard']);
-        this.authService.login();
       }
     } catch (error) {
       // this.isAuthenticated = false;

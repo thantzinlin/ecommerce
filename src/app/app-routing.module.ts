@@ -12,6 +12,8 @@ import { BillingDetailsComponent } from './billing-details/billing-details.compo
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,7 +21,6 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
-
   { path: 'product-details/:id', component: ProductDetailsComponent },
 
   { path: 'billing-details', component: BillingDetailsComponent },
@@ -27,6 +28,8 @@ const routes: Routes = [
   { path: 'admin/product-list', component: ProductListComponent },
   { path: 'admin/product', component: ProductComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'resetpassword/:resettoken', component: ResetPasswordComponent },
+  { path: 'forgotpassword', component: ForgotPasswordComponent },
 
   {
     path: 'dashboard',
