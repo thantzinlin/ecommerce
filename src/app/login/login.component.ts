@@ -5,7 +5,7 @@ import { ConfirmDialogComponent } from '../admin/common/confirm-dialog/confirm-d
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent {
   private isAuthenticated = false;
 
   user = {
-    name: '',
+    phone: '',
     email: '',
     password: '',
   };
@@ -27,22 +27,29 @@ export class LoginComponent {
     private authService: AuthService
   ) {}
 
-  async gologin() {
-    try {
-      const res: any = await this.apiservice
-        .post(`auth/login`, this.user)
-        .toPromise();
-      if (res.returncode === '200') {
-        localStorage.setItem('token', res.token);
+  async goLogin(form: NgForm) {
+    const res: any = await this.apiservice
+      .post(`auth/login`, this.user)
+      .toPromise();
+    if (res.returncode === '200') {
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data));
 
-        this.router.navigate(['/home']);
-        //  this.authService.login();
-      }
-    } catch (error) {
-      this.isAuthenticated = false;
-      this.toast.error('Unauthorised Access.', 'Error');
-
-      console.error('An error occurred while Login', error);
+      // Retrieve user data when the app loads
+      this.router.navigate(['/home']);
     }
   }
+
+  // async gologin() {
+  //   const res: any = await firstValueFrom(
+  //     this.http.post(`http:localhost:5000/api/auth/login`, this.user)
+  //   );
+  //   if (res.returncode === '200') {
+  //     localStorage.setItem('token', res.data.token);
+  //     localStorage.setItem('user', JSON.stringify(res.data));
+
+  //     // Retrieve user data when the app loads
+  //     this.router.navigate(['/home']);
+  //   }
+  // }
 }

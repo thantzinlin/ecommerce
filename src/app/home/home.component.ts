@@ -6,6 +6,7 @@ import { CartService } from '../services/cart.service';
 import { Product } from '../model/product.model';
 import { FormsModule } from '@angular/forms';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,6 +16,8 @@ export class HomeComponent implements OnInit {
   targetDate: Date = new Date('2023-10-18T00:00:00'); // Replace with your flash sale end date
   countdown: string = '';
   products: any[] = [];
+  categories: any[] = [];
+
   pagObj = { page: 1, limit: 10, totalPages: 1, count: 0, search: '' };
 
   sliderImages = [
@@ -41,7 +44,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateCountdown();
-    this.fetchProducts();
+    this.getProducts();
+    this.getCategories();
 
     const token = localStorage.getItem('token');
     if (token) {
@@ -104,13 +108,32 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  async fetchProducts() {
-    const res: any = await this.apiService
-      .get(`products?page=1&perPage=10&search=`)
-      .toPromise();
+  async getProducts() {
+    const res: any = await firstValueFrom(
+      this.apiService.get(`products?page=1&perPage=10&search=`)
+    );
 
     if (res) {
       this.products = res.data;
+    }
+  }
+
+  async getProductsByCategory(categoryId: string) {
+    const res: any = await firstValueFrom(
+      this.apiService.get(`products/categoryId/${categoryId}`)
+    );
+    if (res) {
+      this.products = res.data;
+    }
+  }
+
+  async getCategories() {
+    const res: any = await this.apiService
+      .get(`categories?page=1&perPage=10&search=`)
+      .toPromise();
+
+    if (res) {
+      this.categories = res.data;
     }
   }
 

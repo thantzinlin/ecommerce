@@ -18,6 +18,7 @@ export class ForgotPasswordComponent {
     private toast: ToastrService,
     private authService: AuthService
   ) {}
+
   async onSubmit() {
     if (!this.email) {
       this.toast.info('Please enter a valid email address.', 'Error');

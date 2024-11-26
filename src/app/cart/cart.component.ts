@@ -14,7 +14,7 @@ export class CartComponent implements OnInit {
   products: any[] = [];
 
   couponCode: string = '';
-  shippingFee = 5.0;
+  shippingFee = 1500.0;
   couponApplied: boolean = false;
   couponDiscount: number = 50;
   cart: any;

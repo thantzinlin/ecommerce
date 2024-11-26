@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
@@ -13,7 +13,8 @@ import { AuthService } from 'src/app/auth.service';
 })
 export class RegisterComponent {
   user = {
-    name: '',
+    username: '',
+    phone: '',
     email: '',
     password: '',
   };
@@ -24,25 +25,18 @@ export class RegisterComponent {
     private authService: AuthService
   ) {}
 
-  async goRegister() {
-    try {
-      this.user = {
-        name: '',
-        email: '',
-        password: '',
-      };
-      const res: any = await this.apiservice
-        .post(`users/register`, this.user)
-        .toPromise();
-      if (res) {
-        this.user = res.data;
-        this.router.navigate(['/dashboard']);
-      }
-    } catch (error) {
-      // this.isAuthenticated = false;
-      this.toast.error('Unauthorised Access.', 'Error');
-
-      console.error('An error occurred while Register', error);
+  async goRegister(form: NgForm) {
+    // if (form.valid) {
+    //   console.log('Form Data:', this.user);
+    // } else {
+    //   console.error('Form is invalid');
+    // }
+    const res: any = await this.apiservice
+      .post(`auth/register`, this.user)
+      .toPromise();
+    if (res.returncode === '200') {
+      this.toast.success('Register Successfull.', 'Success');
+      this.router.navigate(['/login']);
     }
   }
 }

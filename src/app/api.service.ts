@@ -26,14 +26,18 @@ export class ApiService {
   }
 
   private handleError = (error: any): Observable<never> => {
-    console.error('An error occurred:', error);
+    const returnMessage =
+      error.error?.returnmessage || error.message || 'Internal Server Error';
+
     if (error.status === 401) {
+      localStorage.removeItem('token');
+
       this.router.navigate(['/login']);
-      this.toast.info('You need to log in to continue.', 'Info');
+      this.toast.info(returnMessage, 'Info');
     } else {
-      this.toast.error(error.message, 'Error');
+      this.toast.error(returnMessage, 'Error');
     }
-    return throwError(() => new Error(error.message || 'Server error'));
+    return throwError(() => new Error(returnMessage));
   };
 
   get<T>(

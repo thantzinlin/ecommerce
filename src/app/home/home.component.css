@@ -1,42 +1,46 @@
+.main-ul {
+  padding: 0;
+}
 .list-group-item {
   border: none;
-}
-
-/* Style the main menu item */
-.list-group-item {
   display: flex;
   align-items: center;
+  padding: 0;
 }
-
-/* Style the main menu text */
+.list-group-item-action {
+  text-decoration: none;
+  padding: 10px;
+}
 .list-group-item span {
-  flex-grow: 1; /* Allow it to expand to fill available space */
+  flex-grow: 1;
 }
 
-/* Style the sub-menu */
 .sub-menu {
   display: none;
-  /* background-color: #ffffff;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-width: 100px; */
+  z-index: 1;
+  margin-left: 20px;
+}
+
+.nested-menu {
+  display: none;
+  min-width: 200px;
   z-index: 1;
 }
 
-/* Style the sub-menu items */
-.sub-menu a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  /* color: #333; */
-}
-
-/* Show the sub-menu when the parent item is hovered */
-.list-group-item:hover .sub-menu {
+.main-menu:hover .sub-menu {
   display: block;
   position: absolute;
   top: 0;
-  left: 100%;
+  left: 80%;
+  z-index: 2;
+}
+
+.sub-menu:hover .nested-menu {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 85%;
+  z-index: 2;
 }
 
 .countdowntime {
