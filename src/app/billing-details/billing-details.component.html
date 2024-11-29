@@ -2,8 +2,7 @@
   <h1 class="text-center">Billing Details</h1>
   <div class="row mb-5">
     <div class="col-md-7">
-      <div class="card shadow-sm mt-4">
-        <!-- Card Header -->
+      <!-- <div class="card shadow-sm mt-4">
         <div
           class="card-header d-flex justify-content-between align-items-center"
         >
@@ -11,15 +10,12 @@
           <a href="#" class="text-primary text-decoration-none">EDIT</a>
         </div>
 
-        <!-- Card Body -->
         <div class="card-body">
-          <!-- User Info Section -->
           <div class="mb-3">
             <p class="mb-1 fw-bold">{{ user.username }}</p>
             <p class="mb-0">{{ user.phone }}</p>
           </div>
 
-          <!-- Address Section -->
           <div>
             <span class="badge bg-danger text-white">HOME</span>
             <p class="mt-2 mb-0">
@@ -27,7 +23,99 @@
             </p>
           </div>
         </div>
+      </div> -->
+      <div class="container mt-4">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="card-title mb-4 text-center">Billing Information</h3>
+
+            <form #billingForm="ngForm" (ngSubmit)="placeOrder(billingForm)">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="city" class="form-label">City</label>
+                  <select
+                    id="city"
+                    class="form-select"
+                    [(ngModel)]="billingInfo.city"
+                    (change)="onCityChange(billingInfo.city)"
+                    name="city"
+                    required
+                  >
+                    <option value="" disabled selected>Select a city</option>
+                    <option *ngFor="let city of cities" [value]="city">
+                      {{ city }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="township" class="form-label">Township</label>
+                  <select
+                    id="township"
+                    class="form-select form-control"
+                    [(ngModel)]="billingInfo.township"
+                    required
+                    name="township"
+                  >
+                    <option
+                      *ngFor="let township of selectedTownships"
+                      [value]="township"
+                    >
+                      {{ township }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="address" class="form-label"
+                    >Street, Building, Floor</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    placeholder="e.g., 123 Main St, Apt 4B"
+                    required
+                    #address="ngModel"
+                    [(ngModel)]="billingInfo.address"
+                    name="address"
+                  />
+                  <div
+                    *ngIf="address.invalid && address.touched"
+                    class="text-danger"
+                  >
+                    Address is required.
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="postal" class="form-label"
+                    >Postal Code (Optional)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postal"
+                    placeholder="Enter postal code"
+                    pattern="[0-9]{5}"
+                    required
+                    #postal="ngModel"
+                    [(ngModel)]="billingInfo.postalCode"
+                    name="postalCode"
+                  />
+                  <div
+                    *ngIf="postal.invalid && postal.touched"
+                    class="text-danger"
+                  >
+                    Please enter a valid postal code.
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
+
       <div class="row p-2 mt-5">
         <div class="col-md-4 offset-md-4 text-end mb-5">
           <div class="input-group">
@@ -123,9 +211,19 @@
     </div>
     <div class="row mt-2">
       <div class="offset-md-6 col-md-2 d-flex justify-content-end">
-        <button class="btn btn-success btn-md w-100" (click)="placeOrder()">
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn btn-success"
+            (click)="billingForm.ngSubmit.emit()"
+            [disabled]="!billingForm.valid"
+          >
+            Place Order
+          </button>
+        </div>
+        <!-- <button class="btn btn-success btn-md w-100" (click)="placeOrder()">
           Place Order
-        </button>
+        </button> -->
       </div>
     </div>
   </div>

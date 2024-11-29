@@ -34,7 +34,7 @@ export class NavbarComponent {
     this.router.navigate(['/about']);
   }
   viewOrders() {
-    this.router.navigate(['/about']);
+    this.router.navigate(['/my-order']);
   }
   handleCancellations() {
     this.router.navigate(['/about']);

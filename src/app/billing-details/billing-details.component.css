@@ -1,20 +1,19 @@
 .container {
   min-height: 510px;
 }
-
+.card {
+  border: 1px solid #fff;
+}
 .billing-details {
   border-radius: 4px;
   background: var(--Primary, #fff);
 
-  /* Categogy/5 */
   box-shadow: 0px 1px 13px 0px rgba(0, 0, 0, 0.05);
 }
 
 .total {
   color: var(--Text2, #000);
 
-  /* Title/16PX Regular */
-  /* font-family: Poppins; */
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
