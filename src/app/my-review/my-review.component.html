@@ -1,0 +1,56 @@
+<div class="container mt-4 mb-4">
+  <h2 class="mb-4 text-center">My Reviews</h2>
+
+  <!-- Reviews List -->
+  <div class="container">
+    <div *ngIf="reviews && reviews.length > 0; else noReviews">
+      <div class="row">
+        <div
+          *ngFor="let review of reviews"
+          class="col-12 col-md-6 col-lg-4 mb-4"
+        >
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-start">
+                <img
+                  [src]="review.productImages"
+                  alt="{{ review.productName }}"
+                  class="img-fluid rounded me-3"
+                  style="width: 75px; height: 75px; object-fit: cover"
+                />
+                <div>
+                  <h5 class="card-title mb-1 text-truncate">
+                    {{ review.productName }}
+                  </h5>
+                  <p class="card-text mb-1">
+                    <strong>Rating:</strong>
+                    <span class="text-warning">
+                      <i
+                        *ngFor="let star of [].constructor(review.rating)"
+                        class="bi bi-star-fill"
+                      ></i>
+                    </span>
+                    <span class="text-muted ms-2">({{ review.rating }}/5)</span>
+                  </p>
+                </div>
+              </div>
+              <hr />
+              <p class="card-text">
+                <strong>Review:</strong><br />
+                {{ review.comment }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Reviews Message -->
+    <ng-template #noReviews>
+      <div class="text-center mt-5">
+        <h4>No Reviews Found</h4>
+        <p>You haven’t reviewed any products yet.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

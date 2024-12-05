@@ -2,28 +2,6 @@
   <h1 class="text-center">Billing Details</h1>
   <div class="row mb-5">
     <div class="col-md-7">
-      <!-- <div class="card shadow-sm mt-4">
-        <div
-          class="card-header d-flex justify-content-between align-items-center"
-        >
-          <h5 class="mb-0 text-center">Billing Information</h5>
-          <a href="#" class="text-primary text-decoration-none">EDIT</a>
-        </div>
-
-        <div class="card-body">
-          <div class="mb-3">
-            <p class="mb-1 fw-bold">{{ user.username }}</p>
-            <p class="mb-0">{{ user.phone }}</p>
-          </div>
-
-          <div>
-            <span class="badge bg-danger text-white">HOME</span>
-            <p class="mt-2 mb-0">
-              {{ user.address }}
-            </p>
-          </div>
-        </div>
-      </div> -->
       <div class="container mt-4">
         <div class="card shadow">
           <div class="card-body">
@@ -37,13 +15,13 @@
                     id="city"
                     class="form-select"
                     [(ngModel)]="billingInfo.city"
-                    (change)="onCityChange(billingInfo.city)"
+                    (change)="onCityChange($event)"
                     name="city"
                     required
                   >
-                    <option value="" disabled selected>Select a city</option>
-                    <option *ngFor="let city of cities" [value]="city">
-                      {{ city }}
+                    <option [value]="" disabled>Select a city</option>
+                    <option *ngFor="let city of cities" [value]="city.name">
+                      {{ city.name }}
                     </option>
                   </select>
                 </div>
@@ -57,31 +35,31 @@
                     name="township"
                   >
                     <option
-                      *ngFor="let township of selectedTownships"
-                      [value]="township"
+                      *ngFor="let township of townships"
+                      [value]="township.name"
                     >
-                      {{ township }}
+                      {{ township.name }}
                     </option>
                   </select>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-8 mb-3">
-                  <label for="address" class="form-label"
+                  <label for="street" class="form-label"
                     >Street, Building, Floor</label
                   >
                   <input
                     type="text"
                     class="form-control"
-                    id="address"
+                    id="street"
                     placeholder="e.g., 123 Main St, Apt 4B"
                     required
-                    #address="ngModel"
-                    [(ngModel)]="billingInfo.address"
-                    name="address"
+                    #street="ngModel"
+                    [(ngModel)]="billingInfo.street"
+                    name="street"
                   />
                   <div
-                    *ngIf="address.invalid && address.touched"
+                    *ngIf="street.invalid && street.touched"
                     class="text-danger"
                   >
                     Address is required.
@@ -98,7 +76,6 @@
                     id="postal"
                     placeholder="Enter postal code"
                     pattern="[0-9]{5}"
-                    required
                     #postal="ngModel"
                     [(ngModel)]="billingInfo.postalCode"
                     name="postalCode"
@@ -114,52 +91,51 @@
             </form>
           </div>
         </div>
-      </div>
-
-      <div class="row p-2 mt-5">
-        <div class="col-md-4 offset-md-4 text-end mb-5">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Cupone Code"
-              [(ngModel)]="couponCode"
-            />
+        <div class="row p-2 mt-5">
+          <div class="col-md-4 offset-md-4 text-end mb-5">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Cupone Code"
+                [(ngModel)]="couponCode"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="col-md-3 offset-md-1">
-          <button class="btn btn-success btn-md">Apply Coupon</button>
-        </div>
-
-        <div class="col-md-8 text-end">
-          <h2>Payment Method</h2>
-        </div>
-
-        <div class="col-md-3 offset-md-1">
-          <div class="form-check">
-            <input
-              class="form-check-input form-check-input-lg"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault1"
-              [checked]="isDefaultChecked"
-            />
-            <label class="form-check-label" for="flexRadioDefault1">
-              KBZ Pay
-            </label>
+          <div class="col-md-3 offset-md-1">
+            <button class="btn btn-success btn-md">Apply Coupon</button>
           </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault2"
-              [checked]="isRadio1Checked"
-            />
-            <label class="form-check-label" for="flexRadioDefault2">
-              Cash on delivery
-            </label>
+
+          <div class="col-md-8 text-end">
+            <h2>Payment Method</h2>
+          </div>
+
+          <div class="col-md-3 offset-md-1">
+            <div class="form-check">
+              <input
+                class="form-check-input form-check-input-lg"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault1"
+                [checked]="isDefaultChecked"
+              />
+              <label class="form-check-label" for="flexRadioDefault1">
+                KBZ Pay
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault2"
+                [checked]="isRadio1Checked"
+              />
+              <label class="form-check-label" for="flexRadioDefault2">
+                Cash on delivery
+              </label>
+            </div>
           </div>
         </div>
       </div>

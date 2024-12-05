@@ -30,6 +30,8 @@ import { ContactComponent } from './contact/contact.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { MyOrderComponent } from './my-order/my-order.component';
+import { MyReviewComponent } from './my-review/my-review.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ImageSliderComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    MyOrderComponent,
+    MyReviewComponent,
   ],
   imports: [
     // NgImageSliderModule,

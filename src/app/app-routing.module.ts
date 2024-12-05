@@ -14,9 +14,11 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { MyOrderComponent } from './my-order/my-order.component';
+import { MyReviewComponent } from './my-review/my-review.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
@@ -28,7 +30,8 @@ const routes: Routes = [
 
   // { path: 'admin/product-list', component: ProductListComponent },
   // { path: 'admin/product', component: ProductComponent },
-  { path: 'my-order', component: MyOrdersComponent },
+  { path: 'my-order', component: MyOrderComponent },
+  { path: 'my-review', component: MyReviewComponent },
 
   { path: 'register', component: RegisterComponent },
   { path: 'resetpassword/:resettoken', component: ResetPasswordComponent },

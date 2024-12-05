@@ -1,21 +1,22 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CartService } from "../services/cart.service";
-import { ApiService } from "../api.service";
-import { ToastrService } from "ngx-toastr";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
+import { ApiService } from '../api.service';
+import { ToastrService } from 'ngx-toastr';
 //import { io, Socket } from 'socket.io-client';
-import { environment } from "src/environments/environment";
-import { NgForm } from "@angular/forms";
+import { environment } from 'src/environments/environment';
+import { NgForm } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: "app-billing-details",
-  templateUrl: "./billing-details.component.html",
-  styleUrls: ["./billing-details.component.css"],
+  selector: 'app-billing-details',
+  templateUrl: './billing-details.component.html',
+  styleUrls: ['./billing-details.component.css'],
 })
 export class BillingDetailsComponent implements OnInit {
   products: any[] = [];
   shippingFee = 1500.0;
-  couponCode = "";
+  couponCode = '';
   user: any;
   //private socket!: Socket;
 
@@ -27,39 +28,60 @@ export class BillingDetailsComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getCartItem();
-    this.user = JSON.parse(localStorage.getItem("user") || "{}");
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.getCities();
     //this.socket = io(environment.socketUrl);
   }
 
-  cities: string[] = ["City A", "City B", "City C"];
-  allTownships: { [key: string]: string[] } = {
-    "City A": ["Township A1", "Township A2", "Township A3"],
-    "City B": ["Township B1", "Township B2", "Township B3"],
-    "City C": ["Township C1", "Township C2", "Township C3"],
-  };
+  cities: any[] = [];
+  townships: any[] = [];
 
-  // Selected townships based on the city
-  selectedTownships: string[] = [];
+  async getCities() {
+    const res: any = await firstValueFrom(this.http.get(`cities`));
 
-  // Form model
-  billingInfo = {
-    address: "",
-    city: "",
-    township: "",
-    postalCode: "",
-  };
-
-  onCityChange(city: string): void {
-    this.selectedTownships = this.allTownships[city] || [];
-    this.billingInfo.township = ""; // Reset township if city changes
+    if (res.returncode === '200') {
+      this.cities = res.data;
+    }
   }
+
+  async getTownships(cityId: string) {
+    const res: any = await firstValueFrom(
+      this.http.get(`townships/city/${cityId}`)
+    );
+
+    if (res.returncode === '200') {
+      this.townships = res.data;
+      //  this.selectedTownships = res.data;
+      // this.billingInfo.township = '';
+    }
+  }
+
+  selectedTownships: any[] = [];
+
+  billingInfo = {
+    street: '',
+    city: '',
+    township: '',
+    postalCode: '',
+  };
+  onCityChange(event: Event): void {
+    const target = event.target as HTMLSelectElement | null;
+    const selectedCity = target?.value || '';
+    const city = this.cities.find((c) => c.name === selectedCity);
+    if (city) {
+      this.billingInfo.township = '';
+      this.billingInfo.city = city.name;
+      this.getTownships(city._id);
+    }
+  }
+
   isDefaultChecked: boolean = true;
   isRadio1Checked: boolean = false;
 
   async getCartItem() {
-    const res: any = await this.http.get(`cart`).toPromise();
+    const res: any = await firstValueFrom(this.http.get(`cart`));
 
-    if (res.returncode === "200") {
+    if (res.returncode === '200') {
       this.products = res.data.products;
     }
   }
@@ -83,14 +105,15 @@ export class BillingDetailsComponent implements OnInit {
         subtotal: product.quantity * product.price - (product.discount || 0),
       })),
       totalPrice: this.getTotalPrice(),
-      paymentMethod: this.isDefaultChecked ? "Cash on Delivery" : "KBZ Pay",
+      shippingAddress: this.billingInfo,
+      billingAddress: this.billingInfo,
+      paymentMethod: this.isDefaultChecked ? 'Cash on Delivery' : 'KBZ Pay',
       orderDate: new Date().toISOString(),
-      shippingAddress: `${this.billingInfo.city}, ${this.billingInfo.township}, ${this.billingInfo.address}, ${this.billingInfo.postalCode}`,
     };
 
-    const res: any = await this.http.post(`orders`, data).toPromise();
+    const res: any = await firstValueFrom(this.http.post(`orders`, data));
 
-    if (res.returncode === "200") {
+    if (res.returncode === '200') {
       // const notiData = {
       //   userId: this.user._id,
       //   type: 'order',
@@ -98,14 +121,14 @@ export class BillingDetailsComponent implements OnInit {
       // };
       // this.socket.emit('newOrder', notiData);
 
-      this.toast.success("Order placed successfully!");
-      this.router.navigate(["/order-success"]);
+      this.toast.success('Order placed successfully!');
+      this.router.navigate(['/order-success']);
     } else {
-      this.toast.error("Failed to place the order. Please try again.");
+      this.toast.error('Failed to place the order. Please try again.');
     }
   }
   formatAmount(amount: number): string {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(amount);
