@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "upload": "az login --tenant ca4306be-7510-4095-a12e-d682468faa49 && az storage blob upload-batch --account-name ydnbadminconsolespa --account-key n2SNNa8saW9diDeMd6Ac8KGfUujftv3+74S8ZUm4N+1jXkgf3rNmQRhsWz7N/5vVC8+tVBa/Nenk+AStxnsnyA== --destination \"$web\" --source ./dist/authentication --overwrite"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
