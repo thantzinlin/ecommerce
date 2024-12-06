@@ -39,7 +39,7 @@ export class NavbarComponent {
   goMyReviews() {
     this.router.navigate(['/my-review']);
   }
-  handleCancellations() {
-    this.router.navigate(['/about']);
+  goMyCancellagion() {
+    this.router.navigate(['/my-cancellation']);
   }
 }

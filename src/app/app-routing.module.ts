@@ -16,6 +16,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { MyOrderComponent } from './my-order/my-order.component';
 import { MyReviewComponent } from './my-review/my-review.component';
+import { MyCancellationComponent } from './my-cancellation/my-cancellation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,7 +33,7 @@ const routes: Routes = [
   // { path: 'admin/product', component: ProductComponent },
   { path: 'my-order', component: MyOrderComponent },
   { path: 'my-review', component: MyReviewComponent },
-
+  { path: 'my-cancellation', component: MyCancellationComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'resetpassword/:resettoken', component: ResetPasswordComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },

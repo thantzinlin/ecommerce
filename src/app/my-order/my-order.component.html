@@ -22,7 +22,8 @@
                   <strong>Status:</strong>
                   <span
                     class="badge"
-                    [class.bg-success]="order.orderStatus === 'Completed'"
+                    [class.bg-success]="order.orderStatus === 'Delivered'"
+                    [class.bg-info]="order.orderStatus === 'Shipped'"
                     [class.bg-warning]="order.orderStatus === 'Pending'"
                     [class.bg-danger]="order.orderStatus === 'Cancelled'"
                   >

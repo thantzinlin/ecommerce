@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartService } from '../services/cart.service';
 import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
 
