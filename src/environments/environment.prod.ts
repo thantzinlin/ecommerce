@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  baseURL: 'http://localhost:5000/api', // Production API URL
+  apiUrl:
+    'https://ecomm-api-eedbh0fnfmarhsbr.southeastasia-01.azurewebsites.net/api',
 };
