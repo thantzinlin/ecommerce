@@ -1,0 +1,107 @@
+/* .checked {
+  color: #ff9f1a;
+}
+.title {
+  color: var(--Text2, #000);
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.72px;
+}
+.price {
+  color: var(--Text2, #000);
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0.72px;
+}
+
+.description {
+  color: #000;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.icon-hover:hover {
+  border-color: #3b71ca !important;
+  background-color: white !important;
+  color: #3b71ca !important;
+}
+
+.icon-hover:hover i {
+  color: #3b71ca !important;
+}
+
+.bullet-text {
+  font-size: 12px;
+}
+
+.my-color {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+label.radio {
+  cursor: pointer;
+}
+
+label.radio input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+label.radio span {
+  border: 2px solid #8f37aa;
+  display: inline-block;
+  color: #8f37aa;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  text-transform: uppercase;
+  transition: 0.5s all;
+  margin-left: 10px;
+}
+
+label.radio .red {
+  background-color: red;
+  border-color: red;
+}
+
+label.radio .blue {
+  background-color: blue;
+  border-color: blue;
+}
+
+label.radio .green {
+  background-color: green;
+  border-color: green;
+}
+
+label.radio .orange {
+  background-color: orange;
+  border-color: orange;
+}
+
+label.radio input:checked + span {
+  color: #fff;
+  position: relative;
+}
+
+label.radio input:checked + span::before {
+  opacity: 1;
+  content: "\2713";
+  position: absolute;
+  font-size: 13px;
+  font-weight: bold;
+  left: 4px;
+} */

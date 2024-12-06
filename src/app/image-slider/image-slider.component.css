@@ -1,0 +1,25 @@
+.carousel-item {
+  transition: transform 0.5s ease;
+}
+
+.carousel-indicators button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.carousel-indicators button.active {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.carousel-indicators button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-indicators button[style] {
+  background-size: cover;
+  background-position: center;
+}

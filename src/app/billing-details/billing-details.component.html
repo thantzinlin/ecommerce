@@ -1,0 +1,206 @@
+<div class="container mt-5">
+  <h1 class="text-center">Billing Details</h1>
+  <div class="row mb-5">
+    <div class="col-md-7">
+      <div class="container mt-4">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="card-title mb-4 text-center">Billing Information</h3>
+
+            <form #billingForm="ngForm" (ngSubmit)="placeOrder(billingForm)">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="city" class="form-label">City</label>
+                  <select
+                    id="city"
+                    class="form-select"
+                    [(ngModel)]="billingInfo.city"
+                    (change)="onCityChange($event)"
+                    name="city"
+                    required
+                  >
+                    <option [value]="" disabled>Select a city</option>
+                    <option *ngFor="let city of cities" [value]="city.name">
+                      {{ city.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="township" class="form-label">Township</label>
+                  <select
+                    id="township"
+                    class="form-select form-control"
+                    [(ngModel)]="billingInfo.township"
+                    required
+                    name="township"
+                  >
+                    <option
+                      *ngFor="let township of townships"
+                      [value]="township.name"
+                    >
+                      {{ township.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="street" class="form-label"
+                    >Street, Building, Floor</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="street"
+                    placeholder="e.g., 123 Main St, Apt 4B"
+                    required
+                    #street="ngModel"
+                    [(ngModel)]="billingInfo.street"
+                    name="street"
+                  />
+                  <div
+                    *ngIf="street.invalid && street.touched"
+                    class="text-danger"
+                  >
+                    Address is required.
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="postal" class="form-label"
+                    >Postal Code (Optional)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postal"
+                    placeholder="Enter postal code"
+                    pattern="[0-9]{5}"
+                    #postal="ngModel"
+                    [(ngModel)]="billingInfo.postalCode"
+                    name="postalCode"
+                  />
+                  <div
+                    *ngIf="postal.invalid && postal.touched"
+                    class="text-danger"
+                  >
+                    Please enter a valid postal code.
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row p-2 mt-5">
+          <div class="col-md-4 offset-md-4 text-end mb-5">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Cupone Code"
+                [(ngModel)]="couponCode"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-3 offset-md-1">
+            <button class="btn btn-success btn-md">Apply Coupon</button>
+          </div>
+
+          <div class="col-md-8 text-end">
+            <h2>Payment Method</h2>
+          </div>
+
+          <div class="col-md-3 offset-md-1">
+            <div class="form-check">
+              <input
+                class="form-check-input form-check-input-lg"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault1"
+                [checked]="isDefaultChecked"
+              />
+              <label class="form-check-label" for="flexRadioDefault1">
+                KBZ Pay
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault2"
+                [checked]="isRadio1Checked"
+              />
+              <label class="form-check-label" for="flexRadioDefault2">
+                Cash on delivery
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 offset-md-1 mt-4">
+      <div
+        class="billing-details"
+        *ngFor="let product of products; let i = index"
+      >
+        <div class="row p-2">
+          <div class="col-md-3">
+            <img
+              [src]="product.images[0]"
+              alt="Product Image"
+              class="img-thumbnail"
+              style="width: 54px; height: 54px"
+            />
+          </div>
+          <div class="col-md-3 pt-3">{{ product.name }}</div>
+          <div class="col-md-1 pt-3 text-end">{{ product.quantity }}</div>
+          <div class="col-md-5 pt-3 text-end">
+            {{ formatAmount(product.quantity * product.price) }}
+          </div>
+        </div>
+      </div>
+      <div class="row p-2 mt-2">
+        <div class="col-md-6"><p class="total">Subtotal</p></div>
+        <div class="col-md-6">
+          <p class="total text-end">{{ formatAmount(getTotalPrice()) }}</p>
+        </div>
+      </div>
+      <hr style="margin: 0" />
+      <div class="row p-2 mt-3">
+        <div class="col-md-6"><p class="total">Shipping</p></div>
+        <div class="col-md-6">
+          <p class="total text-end">{{ formatAmount(shippingFee) }}</p>
+        </div>
+      </div>
+      <hr style="margin: 0" />
+      <div class="row p-2 mt-3">
+        <div class="col-md-6"><p class="total">Total</p></div>
+        <div class="col-md-6">
+          <p class="total text-end">
+            <b>{{ formatAmount(getGrandTotalPrice()) }} MMK</b>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="offset-md-6 col-md-2 d-flex justify-content-end">
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn btn-success"
+            (click)="billingForm.ngSubmit.emit()"
+            [disabled]="!billingForm.valid"
+          >
+            Place Order
+          </button>
+        </div>
+        <!-- <button class="btn btn-success btn-md w-100" (click)="placeOrder()">
+          Place Order
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
