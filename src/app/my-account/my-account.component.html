@@ -1,1 +1,147 @@
-<p>my-account works!</p>
+<div class="container">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 bg-light sidebar p-4">
+      <p class="mb-3">
+        Hello, <strong>{{ userData.name }}</strong>
+      </p>
+      <span class="badge bg-success mb-4">✔ Verified Account</span>
+
+      <ul class="list-unstyled">
+        <li><strong>Manage My Account</strong></li>
+        <li class="mb-2"><a href="#" class="text-primary">My Profile</a></li>
+        <li class="mb-2"><a href="#" class="text-primary">Address Book</a></li>
+        <li class="mb-4">
+          <a href="#" class="text-primary">My Payment Options</a>
+        </li>
+
+        <li><strong>My Orders</strong></li>
+        <li class="mb-2"><a href="#" class="text-primary">My Returns</a></li>
+        <li class="mb-4">
+          <a href="#" class="text-primary">My Cancellations</a>
+        </li>
+
+        <li><strong>My Reviews</strong></li>
+        <li class="mb-4">
+          <a href="#" class="text-primary">My Wishlist & Followed Stores</a>
+        </li>
+
+        <li>
+          <a href="#" class="text-primary"><strong>Sell On Shop</strong></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9 p-4">
+      <h2>Manage My Account</h2>
+
+      <!-- Personal Profile Section -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h6 class="card-title">
+                Personal Profile
+                <a href="#" class="text-primary float-end">Edit</a>
+              </h6>
+              <p class="mb-1">{{ userData.name }}</p>
+              <p class="text-muted mb-3">{{ userData.email }}</p>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="receiveSMS"
+                  [checked]="userData.receiveSMS"
+                  disabled
+                />
+                <label class="form-check-label" for="receiveSMS"
+                  >Receive marketing SMS</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="receiveEmails"
+                  [checked]="userData.receiveEmails"
+                  disabled
+                />
+                <label class="form-check-label" for="receiveEmails"
+                  >Receive marketing emails</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Address Book -->
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h6 class="card-title">
+                Default Shipping Address
+                <a href="#" class="text-primary float-end">Edit</a>
+              </h6>
+              <p>
+                <strong>{{ addressBook.shippingAddress.name }}</strong>
+              </p>
+              <p class="text-muted">
+                {{ addressBook.shippingAddress.address }} <br />
+                {{ addressBook.shippingAddress.city }} <br />
+                {{ addressBook.shippingAddress.phone }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h6 class="card-title">
+                Default Billing Address
+                <a href="#" class="text-primary float-end">Edit</a>
+              </h6>
+              <p>
+                <strong>{{ addressBook.billingAddress.name }}</strong>
+              </p>
+              <p class="text-muted">
+                {{ addressBook.billingAddress.address }} <br />
+                {{ addressBook.billingAddress.city }} <br />
+                {{ addressBook.billingAddress.phone }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h6 class="card-title">Recent Orders</h6>
+          <table class="table table-striped align-middle">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Placed On</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of recentOrders">
+                <td>{{ order.orderNumber }}</td>
+                <td>{{ order.date }}</td>
+                <td>{{ order.items }}</td>
+                <td>{{ order.total }}</td>
+                <td>
+                  <a href="#" class="text-primary">Manage</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
