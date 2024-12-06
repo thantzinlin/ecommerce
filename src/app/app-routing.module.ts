@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ProductListComponent } from './admin/product-list/product-list.component';
-import { ProductComponent } from './admin/product/product.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './auth-guard.service';
@@ -17,6 +15,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { MyOrderComponent } from './my-order/my-order.component';
 import { MyReviewComponent } from './my-review/my-review.component';
 import { MyCancellationComponent } from './my-cancellation/my-cancellation.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,6 +33,8 @@ const routes: Routes = [
   { path: 'my-order', component: MyOrderComponent },
   { path: 'my-review', component: MyReviewComponent },
   { path: 'my-cancellation', component: MyCancellationComponent },
+  { path: 'my-account', component: MyAccountComponent },
+
   { path: 'register', component: RegisterComponent },
   { path: 'resetpassword/:resettoken', component: ResetPasswordComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },

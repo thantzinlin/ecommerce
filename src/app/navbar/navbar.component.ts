@@ -31,7 +31,7 @@ export class NavbarComponent {
     this.router.navigate(['/about']);
   }
   manageAccount() {
-    this.router.navigate(['/about']);
+    this.router.navigate(['/my-account']);
   }
   viewOrders() {
     this.router.navigate(['/my-order']);

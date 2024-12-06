@@ -5,14 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ProductComponent } from './admin/product/product.component';
-import { ProductListComponent } from './admin/product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './login/login.component';
-import { ConfirmDialogComponent } from './admin/common/confirm-dialog/confirm-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { ToastrModule } from 'ngx-toastr';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -38,10 +35,7 @@ import { MyCancellationComponent } from './my-cancellation/my-cancellation.compo
   declarations: [
     AppComponent,
     NavbarComponent,
-    ProductComponent,
-    ProductListComponent,
     LoginComponent,
-    ConfirmDialogComponent,
     DashboardComponent,
     HomeComponent,
     StarRatingComponent,

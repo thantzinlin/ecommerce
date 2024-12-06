@@ -12,7 +12,7 @@ import { AuthService } from '../auth.service';
 export class ResetPasswordComponent implements OnInit {
   newPassword: string = '';
   confirmPassword: string = '';
-  resettoken: string = ''; // Token from the URL
+  resettoken: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,

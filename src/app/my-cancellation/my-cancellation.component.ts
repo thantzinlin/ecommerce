@@ -33,5 +33,4 @@ export class MyCancellationComponent implements OnInit {
       console.error('Failed to fetch orders:', error);
     }
   }
-  reorder(e: any) {}
 }

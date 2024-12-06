@@ -7,57 +7,9 @@
         alt="Login Photo"
       />
     </div>
-    <!-- <div class="col-md-5 p-5">
-      <h1 class="text-center">Log in</h1>
-      <form>
-        <div class="form-group col-12 mb-5">
-          <input
-            type="text"
-            class="form-control custom-input"
-            id="email"
-            [(ngModel)]="user.email"
-            [ngModelOptions]="{ standalone: true }"
-            placeholder="Enter Phone or Email"
-          />
-        </div>
-        <div class="form-group col-12">
-          <input
-            type="password"
-            class="form-control custom-input"
-            id="password"
-            [(ngModel)]="user.password"
-            [ngModelOptions]="{ standalone: true }"
-            placeholder="Password"
-          />
-        </div>
-        <div class="row mt-4">
-          <div class="col-md-6 mt-3">
-            <div class="d-flex align-items-end">
-              <button
-                type="submit"
-                (click)="gologin()"
-                class="btn btn-danger"
-                style="width: 80%"
-              >
-                Login
-              </button>
-            </div>
-          </div>
-          <div class="col-md-6 mt-4 text-end">
-            <a routerLink="/forgotpassword">Forget Password</a>
-          </div>
-          <div>
-            <p class="text-center mt-4">
-              Don't have an account? <br />
-              <a routerLink="/register">Register</a>
-            </p>
-          </div>
-        </div>
-      </form>
-    </div> -->
+
     <div class="container">
       <div class="row justify-content-center">
-        <!-- Form Section -->
         <div class="col-md-12 col-sm-12 p-5">
           <h1 class="mb-3 text-center">Login</h1>
           <form #loginForm="ngForm" (ngSubmit)="goLogin(loginForm)">
