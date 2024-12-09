@@ -4,8 +4,8 @@ export const environment = {
   //  apiUrl: 'http://localhost:5000/api',
   // apiUrl: 'https://104.43.56.158/api',
   apiUrl:
-    'https://ecomm-api-eedbh0fnfmarhsbr.southeastasia-01.azurewebsites.net/api',
+    'https://ecom-api-bvfma6f4avfqbzb2.southeastasia-01.azurewebsites.net/api',
 
   socketUrl:
-    'https://ecomm-api-eedbh0fnfmarhsbr.southeastasia-01.azurewebsites.net',
+    'https://ecom-api-bvfma6f4avfqbzb2.southeastasia-01.azurewebsites.net',
 };
