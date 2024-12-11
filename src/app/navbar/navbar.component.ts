@@ -10,6 +10,8 @@ import { CartService } from '../services/cart.service';
 })
 export class NavbarComponent {
   cartItemCount: number = 0;
+  searchQuery: string = '';
+
   constructor(
     private authservice: AuthService,
     private router: Router,
@@ -41,5 +43,21 @@ export class NavbarComponent {
   }
   goMyCancellagion() {
     this.router.navigate(['/my-cancellation']);
+  }
+  onSearch(event: Event): void {
+    event.preventDefault();
+    //if (this.searchQuery.trim()) {
+    this.router.navigate(['/home'], {
+      queryParams: { q: this.searchQuery.trim() },
+    });
+    //   }
+  }
+
+  onSearchIconClick(): void {
+    // if (this.searchQuery.trim()) {
+    this.router.navigate(['/home'], {
+      queryParams: { q: this.searchQuery.trim() },
+    });
+    // }
   }
 }

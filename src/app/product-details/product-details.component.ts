@@ -5,7 +5,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { io, Socket } from 'socket.io-client';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -55,16 +55,18 @@ export class ProductDetailsComponent implements OnInit {
       this.product = res.data;
     }
   }
-  async addToCart(product: Product) {
+  async addToCart(product: Product, showAlert: boolean) {
     const cart = {
       productId: this.productId,
       quantity: this.quantity,
       action: 'update',
     };
-    const res: any = await this.apiService.post(`cart`, cart).toPromise();
+    const res: any = await firstValueFrom(this.apiService.post(`cart`, cart));
     if (res.returncode === '200') {
       this.cartService.updateCart(res.data);
-      this.toast.success('Item successfully added to your cart!', 'Success');
+      if (showAlert) {
+        this.toast.success('Item successfully added to your cart!', 'Success');
+      }
     }
     // this.socket.emit('addToCart', '672c3d1cfa9d501bfe5a99f5', products);
     // this.cartService.addToCart(product);
@@ -83,7 +85,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   buyNow(): void {
-    this.addToCart(this.product);
-    this.router.navigate(['/checkout']);
+    this.addToCart(this.product, false);
+    this.router.navigate(['/billing-details']);
   }
 }

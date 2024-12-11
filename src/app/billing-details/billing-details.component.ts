@@ -133,4 +133,7 @@ export class BillingDetailsComponent implements OnInit {
       maximumFractionDigits: 2,
     }).format(amount);
   }
+  goBack() {
+    this.router.navigate(['/home']);
+  }
 }

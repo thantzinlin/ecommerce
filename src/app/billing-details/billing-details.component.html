@@ -142,64 +142,64 @@
     </div>
 
     <div class="col-md-4 offset-md-1 mt-4">
-      <div
-        class="billing-details"
-        *ngFor="let product of products; let i = index"
-      >
-        <div class="row p-2">
-          <div class="col-md-3">
-            <img
-              [src]="product.images[0]"
-              alt="Product Image"
-              class="img-thumbnail"
-              style="width: 54px; height: 54px"
-            />
+      <div class="cart-item p-2">
+        <div *ngFor="let product of products; let i = index">
+          <div class="row p-2">
+            <div class="col-md-3">
+              <img
+                [src]="product.images[0]"
+                alt="Product Image"
+                class="img-thumbnail"
+                style="width: 54px; height: 54px"
+              />
+            </div>
+            <div class="col-md-3 pt-3">{{ product.name }}</div>
+            <div class="col-md-1 pt-3 text-end">{{ product.quantity }}</div>
+            <div class="col-md-5 pt-3 text-end">
+              {{ formatAmount(product.quantity * product.price) }}
+            </div>
           </div>
-          <div class="col-md-3 pt-3">{{ product.name }}</div>
-          <div class="col-md-1 pt-3 text-end">{{ product.quantity }}</div>
-          <div class="col-md-5 pt-3 text-end">
-            {{ formatAmount(product.quantity * product.price) }}
+        </div>
+        <div class="row p-2 mt-2">
+          <div class="col-md-6"><p class="total">Subtotal</p></div>
+          <div class="col-md-6">
+            <p class="total text-end">{{ formatAmount(getTotalPrice()) }}</p>
           </div>
         </div>
-      </div>
-      <div class="row p-2 mt-2">
-        <div class="col-md-6"><p class="total">Subtotal</p></div>
-        <div class="col-md-6">
-          <p class="total text-end">{{ formatAmount(getTotalPrice()) }}</p>
+        <hr style="margin: 0" />
+        <div class="row p-2 mt-3">
+          <div class="col-md-6"><p class="total">Shipping</p></div>
+          <div class="col-md-6">
+            <p class="total text-end">{{ formatAmount(shippingFee) }}</p>
+          </div>
         </div>
-      </div>
-      <hr style="margin: 0" />
-      <div class="row p-2 mt-3">
-        <div class="col-md-6"><p class="total">Shipping</p></div>
-        <div class="col-md-6">
-          <p class="total text-end">{{ formatAmount(shippingFee) }}</p>
-        </div>
-      </div>
-      <hr style="margin: 0" />
-      <div class="row p-2 mt-3">
-        <div class="col-md-6"><p class="total">Total</p></div>
-        <div class="col-md-6">
-          <p class="total text-end">
-            <b>{{ formatAmount(getGrandTotalPrice()) }} MMK</b>
-          </p>
+        <hr style="margin: 0" />
+        <div class="row p-2 mt-3">
+          <div class="col-md-6"><p class="total">Total</p></div>
+          <div class="col-md-6">
+            <p class="total text-end">
+              <b>{{ formatAmount(getGrandTotalPrice()) }} MMK</b>
+            </p>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="row mt-2">
-      <div class="offset-md-6 col-md-2 d-flex justify-content-end">
-        <div class="text-center">
-          <button
-            type="submit"
-            class="btn btn-success"
-            (click)="billingForm.ngSubmit.emit()"
-            [disabled]="!billingForm.valid"
-          >
-            Place Order
-          </button>
-        </div>
-        <!-- <button class="btn btn-success btn-md w-100" (click)="placeOrder()">
+      <div class="col-md-2">
+        <button type="button" class="btn btn-light" (click)="goBack()">
+          Back
+        </button>
+      </div>
+      <div class="offset-md-4 col-md-2">
+        <button
+          type="submit"
+          class="btn btn-success"
+          (click)="billingForm.ngSubmit.emit()"
+          [disabled]="!billingForm.valid"
+        >
           Place Order
-        </button> -->
+        </button>
       </div>
     </div>
   </div>

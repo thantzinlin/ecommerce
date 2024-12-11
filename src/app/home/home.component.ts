@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
@@ -15,6 +15,7 @@ import { firstValueFrom } from 'rxjs';
 export class HomeComponent implements OnInit {
   targetDate: Date = new Date('2023-10-18T00:00:00'); // Replace with your flash sale end date
   countdown: string = '';
+  searchQuery: string = '';
   products: any[] = [];
   categories: any[] = [];
 
@@ -36,7 +37,8 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor(
-    private router: Router,
+    private route: ActivatedRoute,
+
     private cartService: CartService,
     private apiService: ApiService,
     private toast: ToastrService
@@ -46,6 +48,10 @@ export class HomeComponent implements OnInit {
     this.updateCountdown();
     this.getProducts();
     this.getCategories();
+    this.route.queryParams.subscribe((params) => {
+      this.searchQuery = params['q'] || '';
+      this.getProducts(this.searchQuery);
+    });
 
     const token = localStorage.getItem('token');
     if (token) {
@@ -91,29 +97,13 @@ export class HomeComponent implements OnInit {
   formatWithLeadingZeros(value: number): string {
     return value.toString().padStart(2, '0');
   }
-  imageObject = [
-    {
-      image: 'assets/images/img16.jpg',
-      thumbImage: 'assets/images/img16.jpg',
-      title: 'Hummingbirds are amazing creatures',
-    },
-    {
-      image: 'assets/images/img17.jpg',
-      thumbImage: 'assets/images/img17.jpg',
-    },
-    {
-      image: 'assets/images/img18.jpg',
-      thumbImage: 'assets/images/img18.jpg',
-      title: 'Example two with title.',
-    },
-  ];
 
-  async getProducts() {
+  async getProducts(search: string = '') {
     const res: any = await firstValueFrom(
-      this.apiService.get(`products?page=1&perPage=10&search=`)
+      this.apiService.get(`products?page=1&perPage=10&search=${search}`)
     );
 
-    if (res) {
+    if (res.returncode === '200') {
       this.products = res.data;
     }
   }
