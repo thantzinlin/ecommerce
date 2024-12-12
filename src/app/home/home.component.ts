@@ -23,15 +23,15 @@ export class HomeComponent implements OnInit {
 
   sliderImages = [
     {
-      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1727430920/cld-sample-5.jpg',
+      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1733764891/exipvtviwnj6w74nxyw3.jpg',
       alt: 'Image 1',
     },
     {
-      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1727430908/sample.jpg',
+      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1733765028/prfw578jwjvjt4fykmox.jp',
       alt: 'Image 2',
     },
     {
-      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1727430919/cld-sample-4.jpg',
+      url: 'https://res.cloudinary.com/dsdemersd/image/upload/v1733987152/xcggmsidpjsam41t86mb.webp',
       alt: 'Image 3',
     },
   ];
