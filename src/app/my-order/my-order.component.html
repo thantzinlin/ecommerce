@@ -16,7 +16,7 @@
                 </p>
                 <p class="card-text mb-1">
                   <strong>Total:</strong>
-                  {{ order.totalPrice | number : "1.2-2" }} MMK
+                  {{ order.totalAmount | number : "1.2-2" }} MMK
                 </p>
                 <p class="card-text mb-0">
                   <strong>Status:</strong>
@@ -69,13 +69,13 @@
                     <h6 class="card-title mb-1">{{ product.name }}</h6>
                     <p class="card-text">
                       Quantity: {{ product.quantity }}<br />
-                      Price: ${{ product.price | number : "1.2-2" }}
+                      Price: {{ product.price | number : "1.2-2" }} MMK
                     </p>
                   </div>
                 </div>
                 <div class="card-footer text-end bg-light">
                   <span class="badge bg-secondary"
-                    >Subtotal: ${{ product.subtotal | number : "1.2-2" }}</span
+                    >Subtotal: {{ product.subtotal | number : "1.2-2" }} MMK</span
                   >
                 </div>
               </div>
@@ -83,9 +83,9 @@
           </div>
           <div class="text-end mt-3">
             <p class="fs-5">
-              <strong>Total Price:</strong> ${{
-                selectedOrder.totalPrice | number : "1.2-2"
-              }}
+              <strong>Total Price:</strong> {{
+                selectedOrder.totalAmount | number : "1.2-2"
+              }} MMK
             </p>
           </div>
         </div>

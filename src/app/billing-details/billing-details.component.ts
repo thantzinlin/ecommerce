@@ -15,7 +15,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class BillingDetailsComponent implements OnInit {
   products: any[] = [];
-  shippingFee = 1500.0;
+  shippingFee = 0.0;
   couponCode = '';
   user: any;
   //private socket!: Socket;
@@ -27,6 +27,7 @@ export class BillingDetailsComponent implements OnInit {
     private toast: ToastrService
   ) {}
   ngOnInit(): void {
+    this.shippingFee = 1500.0;
     this.getCartItem();
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.getCities();
@@ -85,7 +86,7 @@ export class BillingDetailsComponent implements OnInit {
       this.products = res.data.products;
     }
   }
-  getTotalPrice(): number {
+  getSubTotalPrice(): number {
     return this.products.reduce(
       (total, product) => total + product.quantity * product.price,
       0
@@ -93,7 +94,7 @@ export class BillingDetailsComponent implements OnInit {
   }
 
   getGrandTotalPrice(): number {
-    return this.getTotalPrice() + this.shippingFee;
+    return this.getSubTotalPrice() + this.shippingFee;
   }
   async placeOrder(form: NgForm) {
     const data = {
@@ -104,8 +105,10 @@ export class BillingDetailsComponent implements OnInit {
         discount: product.discount || 0,
         subtotal: product.quantity * product.price - (product.discount || 0),
       })),
-      totalPrice: this.getTotalPrice(),
+      totalAmount: this.getGrandTotalPrice(),
       shippingAddress: this.billingInfo,
+      shippingCharge: this.shippingFee,
+      subTotal: this.getSubTotalPrice(),
       billingAddress: this.billingInfo,
       paymentMethod: this.isDefaultChecked ? 'Cash on Delivery' : 'KBZ Pay',
       orderDate: new Date().toISOString(),
