@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { firstValueFrom } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-my-cancellation',
-  // standalone: true,
-  // imports: [],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './my-cancellation.component.html',
   styleUrl: './my-cancellation.component.css',
 })

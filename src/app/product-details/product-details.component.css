@@ -1,3 +1,27 @@
-.container {
-  min-height: 450px;
+
+
+.my-color label.radio {
+  position: relative;
+  cursor: pointer;
+}
+
+.my-color label.radio input[type="radio"] {
+  display: none; /* hide actual radio button */
+}
+
+.my-color label.radio span {
+  display: inline-block;
+  padding: 6px 14px;
+  margin: 2px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  transition: all 0.2s ease-in-out;
+}
+
+.my-color label.radio input[type="radio"]:checked + span {
+  border-color: #007bff;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
 }

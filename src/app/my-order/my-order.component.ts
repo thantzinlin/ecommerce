@@ -4,10 +4,12 @@ import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
 
 import { firstValueFrom } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-my-order',
-  //standalone: true,
-  //imports: [],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './my-order.component.html',
   styleUrl: './my-order.component.css',
 })

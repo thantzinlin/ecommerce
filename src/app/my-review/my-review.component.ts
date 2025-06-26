@@ -4,10 +4,12 @@ import { CartService } from '../services/cart.service';
 import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { firstValueFrom } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-my-review',
-  // standalone: true,
-  // imports: [],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './my-review.component.html',
   styleUrl: './my-review.component.css',
 })

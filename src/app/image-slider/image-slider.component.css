@@ -1,7 +1,9 @@
 .carousel-item {
   transition: transform 0.5s ease;
 }
-
+.carousel-control-next-icon,.carousel-control-prev-icon {
+  filter: invert(1); /* Makes white icons black */
+}
 .carousel-indicators button {
   width: 30px;
   height: 30px;

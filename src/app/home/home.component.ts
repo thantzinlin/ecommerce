@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
@@ -7,8 +7,19 @@ import { Product } from '../model/product.model';
 import { FormsModule } from '@angular/forms';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { firstValueFrom } from 'rxjs';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { CommonModule } from '@angular/common';
+import { ImageSliderComponent } from '../image-slider/image-slider.component';
 @Component({
   selector: 'app-home',
+  imports: [
+    CommonModule,
+    FormsModule,
+    StarRatingComponent,
+    ImageSliderComponent,
+    RouterModule,
+  ],
+  standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-star-rating',
+  imports: [CommonModule, FormsModule],
+  standalone: true,
   templateUrl: './star-rating.component.html',
   styleUrls: ['./star-rating.component.css'],
 })

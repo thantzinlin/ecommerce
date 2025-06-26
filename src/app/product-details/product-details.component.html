@@ -3,24 +3,10 @@
     <div class="col-md-5 pr-2">
       <div class="card product-card">
         <div class="demo">
-          <img
-            [src]="product.images ? product.images[0] : ''"
-            style="width: 100%"
-            alt="Product Image"
-            class="product-image"
-          />
-          <!-- Hover overlay -->
-          <div class="hover-overlay">
-            <img
-              *ngFor="let img of product?.images?.slice(1)"
-              [src]="img"
-              alt="Additional Product Image"
-              class="overlay-image"
-            />
-          </div>
-        </div>
-        <div class="mt-3">
-          <!-- Optional image slider can go here -->
+          <app-product-details-img-slider
+            [images]="images"
+            [interval]="0"
+          ></app-product-details-img-slider>
         </div>
       </div>
     </div>
@@ -47,37 +33,155 @@
           ({{ product.totalReviews }})
         </span>
       </div>
-      <h4 class="price">
-        Price: <span>{{ product.price }} MMK</span>
-      </h4>
+      <h4 style="font-weight: bold">Price:</h4>
+
+      <div class="price">
+        <div *ngIf="product.variants && product.variants.length > 0">
+          <!-- Variant price -->
+          <div *ngIf="product.discountValue > 0">
+            <div class="text-muted text-decoration-line-through me-2">
+              {{
+                selectedVariant?.price
+                  | currency : undefined : "symbol" : "1.0-0"
+              }}
+            </div>
+            <span class="text-danger fw-bold">
+              {{
+                selectedVariant?.discountedPrice
+                  | currency : undefined : "symbol" : "1.0-0"
+              }}
+            </span>
+            <span class="text-success fw-bold ms-4">
+              <span *ngIf="product.discountType === 'percentage'">
+                -{{ product.discountValue }}%
+              </span>
+              <span *ngIf="product.discountType === 'fixed'">
+                -{{
+                  product.discountValue
+                    | currency : undefined : "symbol" : "1.0-0"
+                }}
+              </span>
+            </span>
+          </div>
+          <div *ngIf="product.discountValue === 0">
+            {{
+              selectedVariant?.price | currency : undefined : "symbol" : "1.0-0"
+            }}
+          </div>
+        </div>
+
+        <div *ngIf="!product.variants || product.variants.length === 0">
+          <!-- Base product price -->
+          <div *ngIf="product.discountValue > 0">
+            <div class="text-muted text-decoration-line-through me-2">
+              {{ product.price | currency : undefined : "symbol" : "1.0-0" }}
+            </div>
+            <span class="text-danger fw-bold">
+              {{
+                product.discountedPrice
+                  | currency : undefined : "symbol" : "1.0-0"
+              }}
+            </span>
+            <span class="text-success fw-bold ms-4">
+              <span *ngIf="product.discountType === 'percentage'">
+                -{{ product.discountValue }}%
+              </span>
+              <span *ngIf="product.discountType === 'fixed'">
+                -{{
+                  product.discountValue
+                    | currency : undefined : "symbol" : "1.0-0"
+                }}
+              </span>
+            </span>
+          </div>
+          <div *ngIf="product.discountValue === 0">
+            {{ product.price | currency : undefined : "symbol" : "1.0-0" }}
+          </div>
+        </div>
+      </div>
+
       <p class="description">{{ product.description }}</p>
       <hr class="my-4" />
 
       <div class="col-md-12 mt-4">
         <div class="form-group row">
-          <div>
-            <div>
-              <span class="font-weight-bold">Color</span>
+          <div *ngIf="product.variants" class="col-md-12">
+            <div *ngIf="sizes.length > 0" class="d-flex mb-2">
+              <span class="font-weight-bold mt-2">Size : &nbsp;</span>
+              <div class="my-color" style="margin-left: 17px">
+                <label class="radio" *ngFor="let size of sizes">
+                  <input
+                    type="radio"
+                    name="size"
+                    [value]="size"
+                    [(ngModel)]="selectedSize"
+                    (ngModelChange)="updateSelectedVariant(selectedSize)"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <span>{{ size }}</span>
+                </label>
+              </div>
             </div>
-            <div class="my-color">
-              <label class="radio" *ngFor="let color of product.colors">
-                <input type="radio" name="color" [value]="color" />
-                <span [ngClass]="color"></span>
-              </label>
+
+            <div *ngIf="weights.length > 0" class="d-flex mb-2">
+              <span class="font-weight-bold mt-2">Weight : &nbsp;</span>
+              <div class="my-color">
+                <label class="radio" *ngFor="let weight of weights">
+                  <input
+                    type="radio"
+                    name="weight"
+                    [value]="weight"
+                    [(ngModel)]="selectedWeight"
+                    (ngModelChange)="updateSelectedVariant(selectedWeight)"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <span>{{ weight }}</span>
+                </label>
+              </div>
+            </div>
+
+            <div *ngIf="colors.length > 0" class="d-flex">
+              <span class="font-weight-bold mt-2">Color : </span>
+              <div class="my-color" style="margin-left: 19px">
+                <label class="radio" *ngFor="let color of colors">
+                  <input
+                    type="radio"
+                    name="color"
+                    [value]="color"
+                    [(ngModel)]="selectedColor"
+                    (ngModelChange)="updateSelectedVariant(selectedColor)"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <span [ngClass]="color">{{ color }}</span>
+                </label>
+              </div>
+            </div>
+            <div class="mt-3" *ngIf="selectedVariant">
+              <span *ngIf="selectedVariant.stockQuantity > 0"
+                >Stock : &nbsp;&nbsp;&nbsp;<span class="text-danger">{{
+                  selectedVariant.stockQuantity
+                }}</span></span
+              >
+              <span
+                *ngIf="selectedVariant.stockQuantity === 0"
+                class="text-danger"
+                >Out of stock</span
+              >
             </div>
           </div>
-          <div class="row mb-4">
-            <div class="col-md-4 col-6" style="width: 32%">
-              <label class="mb-2">Size</label>
-              <select
-                class="form-select border border-secondary"
-                style="height: 35px"
-              >
-                <option *ngFor="let size of product.sizes">{{ size }}</option>
-              </select>
-            </div>
+          <div *ngIf="!product.variants || product.variants.length === 0">
+            <span *ngIf="product.stockQuantity > 0"
+              >Stock : &nbsp;&nbsp;&nbsp;<span class="text-danger">{{
+                product.stockQuantity
+              }}</span></span
+            >
+            <span *ngIf="product.stockQuantity == 0" class="text-danger"
+              >Out of stock</span
+            >
+          </div>
+
+          <div class="row mb-4 mt-2">
             <div class="col-md-4 col-6">
-              <label class="mb-2 d-block">Quantity</label>
               <div class="input-group mb-3" style="width: 170px">
                 <button
                   class="btn btn-white border border-secondary px-3"

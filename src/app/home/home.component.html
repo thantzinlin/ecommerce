@@ -121,16 +121,65 @@
                   class="card-img"
                   alt="Product Image"
               /></a>
-              <button
+              <!-- <button
                 class="btn btn-success btn-sm add-to-cart-btn"
                 (click)="addToCart(product)"
               >
                 Add to Cart
-              </button>
+              </button> -->
             </div>
             <div>
               <h5 class="product-title">{{ product.name }}</h5>
-              <p class="price">{{ product.price }}</p>
+              <div class="price">
+                <div
+                  *ngIf="
+                    product.discountValue > 0 &&
+                    product.isDiscountActive === true
+                  "
+                >
+                  <div class="text-muted text-decoration-line-through me-2">
+                    {{
+                      product.variants.length > 0
+                        ? product.variants[0].price
+                        : (product.price
+                          | currency : undefined : "symbol" : "1.0-0")
+                    }}
+                  </div>
+
+                  <span class="text-danger fw-bold">
+                    {{
+                      product.variants.length > 0
+                        ? product.variants[0].discountedPrice
+                        : (product.discountedPrice
+                          | currency : undefined : "symbol" : "1.0-0")
+                    }}
+                  </span>
+                  <span class="text-success fw-bold ms-4">
+                    <span *ngIf="product.discountType === 'percentage'">
+                      -{{ product.discountValue }}%
+                    </span>
+                    <span *ngIf="product.discountType === 'fixed'">
+                      -{{
+                        product.discountValue
+                          | currency : undefined : "symbol" : "1.0-0"
+                      }}
+                    </span>
+                  </span>
+                </div>
+                <div
+                  *ngIf="
+                    product.discountValue === 0 &&
+                    product.isDiscountActive === false
+                  "
+                >
+                  {{
+                    product.variants.length > 0
+                      ? product.variants[0].price
+                      : (product.price
+                        | currency : undefined : "symbol" : "1.0-0")
+                  }}
+                </div>
+              </div>
 
               <div class="d-flex align-items-center">
                 <app-star-rating
@@ -147,7 +196,5 @@
         </div>
       </div>
     </div>
-
-    <div class="row"></div>
   </div>
 </div>

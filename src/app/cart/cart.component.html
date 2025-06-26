@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th class="bg-success text-white">Product</th>
-        <th class="bg-success text-white">Description</th>
+        <!-- <th class="bg-success text-white">Description</th> -->
         <th class="text-end bg-success text-white">Price</th>
         <th class="text-center bg-success text-white">Quantity</th>
         <th class="text-end bg-success text-white">Subtotal</th>
@@ -21,11 +21,30 @@
           />
           {{ product.name }}
         </td>
-        <td class="pt-5">{{ product.description }}</td>
-        <td class="pt-5 text-end">{{ formatAmount(product.price) }}</td>
+        <!-- <td class="pt-5" style="width: 25%">{{ product.description }}</td> -->
+        <td class="pt-5 text-end">
+          <div *ngIf="product.discountedPrice > 0">
+            <div class="text-muted text-decoration-line-through me-2">
+              {{ product.price | currency : undefined : "symbol" : "1.0-0" }}
+            </div>
 
-        <td style="width: 12%" class="pt-5">
-          <div class="d-flex align-items-center">
+            <span class="text-danger fw-bold">
+              {{
+                product.discountedPrice
+                  | currency : undefined : "symbol" : "1.0-0"
+              }}
+            </span>
+          </div>
+
+          <div *ngIf="product.discountedPrice == 0">
+            <span class="text-danger fw-bold">
+              {{ product.price | currency : undefined : "symbol" : "1.0-0" }}
+            </span>
+          </div>
+        </td>
+
+        <td style="width: 12%">
+          <div class="d-flex align-items-center mt-4">
             <button
               class="btn btn-white border border-secondary px-2 me-1"
               type="button"
@@ -34,7 +53,7 @@
             >
               <i class="fas fa-minus"></i>
             </button>
-            <div>
+            <div class="col-md-7">
               <input
                 type="number"
                 min="1"
@@ -55,10 +74,18 @@
         </td>
 
         <td class="pt-5 text-end">
-          {{ formatAmount(product.quantity * product.price) }} MMK
+          {{
+            product.quantity *
+              (product.discountedPrice > 0
+                ? product.discountedPrice
+                : product.price) | currency : undefined : "symbol" : "1.0-0"
+          }}
         </td>
-        <td class="pt-5">
-          <button class="btn btn-danger btn-sm" (click)="removeItem(product)">
+        <td>
+          <button
+            class="btn btn-danger btn-sm mt-4"
+            (click)="removeItem(product)"
+          >
             <i class="bi bi-trash"></i>
           </button>
         </td>
@@ -87,35 +114,44 @@
         <button class="btn btn-success">Apply Coupon</button>
       </div>
     </div>
-    <div class="col-md-5 offset-md-2 cart-summary mb-4 p-5" *ngIf="products.length > 0">
+    <div
+      class="col-md-5 offset-md-2 cart-summary mb-4 p-5"
+      *ngIf="products.length > 0"
+    >
       <h2 class="text-center">Order Summary</h2>
       <div class="row">
         <div class="col-md-6">
           <p>Total Items:</p>
         </div>
         <div class="col-md-6 text-end">
-          <p>{{ getTotalItems() }}</p>
+          <p>{{ totalItems }}</p>
         </div>
         <hr />
         <div class="col-md-6">
           <p>Subtotal:</p>
         </div>
         <div class="col-md-6 text-end">
-          <p>{{ formatAmount(getTotalPrice()) }} MMK</p>
+          <p>
+            {{ subtotal | currency : undefined : "symbol" : "1.0-0" }}
+          </p>
         </div>
         <hr />
         <div class="col-md-6">
           <p>Shipping:</p>
         </div>
         <div class="col-md-6 text-end">
-          <p>{{ formatAmount(shippingFee) }} MMK</p>
+          <p>
+            {{ shippingFee | currency : undefined : "symbol" : "1.0-0" }}
+          </p>
         </div>
         <hr />
         <div class="col-md-6">
           <p>Grand Total:</p>
         </div>
         <div class="col-md-6 text-end">
-          <p>{{ formatAmount(getGrandTotalPrice()) }} MMK</p>
+          <p>
+            {{ grandTotal | currency : undefined : "symbol" : "1.0-0" }}
+          </p>
         </div>
         <div class="col-12 d-flex justify-content-center align-items-center">
           <a href="#" class="btn btn-success" [routerLink]="'/billing-details'"

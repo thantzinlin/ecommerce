@@ -5,19 +5,25 @@ import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
 //import { io, Socket } from 'socket.io-client';
 import { environment } from 'src/environments/environment';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-
+import { CommonModule } from '@angular/common';
+declare var bootstrap: any;
 @Component({
   selector: 'app-billing-details',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './billing-details.component.html',
   styleUrls: ['./billing-details.component.css'],
 })
 export class BillingDetailsComponent implements OnInit {
   products: any[] = [];
-  shippingFee = 0.0;
+  shippingFee: number = 0;
+  subTotal: number = 0;
+  grandTotal: number = 0;
   couponCode = '';
   user: any;
+  billingInfo: any;
   //private socket!: Socket;
 
   constructor(
@@ -27,11 +33,21 @@ export class BillingDetailsComponent implements OnInit {
     private toast: ToastrService
   ) {}
   ngOnInit(): void {
-    this.shippingFee = 1500.0;
+    this.shippingFee = 2000.0;
     this.getCartItem();
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.getCities();
     //this.socket = io(environment.socketUrl);
+    this.billingInfo = {
+      name: this.user.username || '',
+      phone: this.user.phone || '',
+      email: this.user.email || '',
+      remarks: '',
+      street: '',
+      city: '',
+      township: '',
+      postalCode: '',
+    };
   }
 
   cities: any[] = [];
@@ -52,19 +68,11 @@ export class BillingDetailsComponent implements OnInit {
 
     if (res.returncode === '200') {
       this.townships = res.data;
-      //  this.selectedTownships = res.data;
-      // this.billingInfo.township = '';
     }
   }
 
   selectedTownships: any[] = [];
 
-  billingInfo = {
-    street: '',
-    city: '',
-    township: '',
-    postalCode: '',
-  };
   onCityChange(event: Event): void {
     const target = event.target as HTMLSelectElement | null;
     const selectedCity = target?.value || '';
@@ -80,35 +88,47 @@ export class BillingDetailsComponent implements OnInit {
   isRadio1Checked: boolean = false;
 
   async getCartItem() {
-    const res: any = await firstValueFrom(this.http.get(`cart`));
+    const cartId = localStorage.getItem('cartId')?.toString();
+    const res: any = await firstValueFrom(
+      this.http.get(`cart?cartId=${cartId}`)
+    );
 
     if (res.returncode === '200') {
       this.products = res.data.products;
+      this.getSubTotalPrice();
+      this.getGrandTotalPrice();
     }
   }
-  getSubTotalPrice(): number {
-    return this.products.reduce(
-      (total, product) => total + product.quantity * product.price,
-      0
-    );
+  async getSubTotalPrice() {
+    this.subTotal = this.products.reduce((total, product) => {
+      const unitPrice =
+        product.discountedPrice > 0 ? product.discountedPrice : product.price;
+      return total + unitPrice * product.quantity;
+    }, 0);
   }
 
-  getGrandTotalPrice(): number {
-    return this.getSubTotalPrice() + this.shippingFee;
+  getGrandTotalPrice() {
+    this.grandTotal = this.subTotal + this.shippingFee;
   }
   async placeOrder(form: NgForm) {
+    const userId = this.user._id
+      ? this.user._id
+      : localStorage.getItem('userId')?.toString();
     const data = {
+      userId: userId,
+      cartId: localStorage.getItem('cartId')?.toString(),
       products: this.products.map((product: any) => ({
         productId: product._id,
         quantity: product.quantity,
         price: product.price,
-        discount: product.discount || 0,
-        subtotal: product.quantity * product.price - (product.discount || 0),
+        discount: product.discountedPrice || 0,
+        subtotal:
+          product.quantity * product.price - (product.discountedPrice || 0),
       })),
-      totalAmount: this.getGrandTotalPrice(),
+      totalAmount: this.grandTotal,
       shippingAddress: this.billingInfo,
       shippingCharge: this.shippingFee,
-      subTotal: this.getSubTotalPrice(),
+      subTotal: this.subTotal,
       billingAddress: this.billingInfo,
       paymentMethod: this.isDefaultChecked ? 'Cash on Delivery' : 'KBZ Pay',
       orderDate: new Date().toISOString(),
@@ -123,9 +143,15 @@ export class BillingDetailsComponent implements OnInit {
       //   message: `New order received: `,
       // };
       // this.socket.emit('newOrder', notiData);
+      localStorage.setItem('userId', res.data.userId);
+      this.cartService.updateCart(0);
 
-      this.toast.success('Order placed successfully!');
-      this.router.navigate(['/order-success']);
+      localStorage.removeItem('cartId');
+      const modal = new bootstrap.Modal(
+        document.getElementById('orderSuccessModal')
+      );
+      modal.show();
+      this.router.navigate(['/home']);
     } else {
       this.toast.error('Failed to place the order. Please try again.');
     }

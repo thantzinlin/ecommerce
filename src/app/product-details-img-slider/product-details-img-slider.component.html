@@ -1,0 +1,60 @@
+<div *ngIf="images.length > 0" class="product-slider">
+  <!-- Main Image with Hover Zoom -->
+  <div class="main-image zoom-container position-relative">
+    <img
+      [src]="images[activeIndex].url"
+      [alt]="images[activeIndex].alt || 'Image ' + (activeIndex + 1)"
+      class="d-block w-100 zoom-image"
+      [style.max-height.px]="imageMaxHeight"
+    />
+
+    <!-- Prev/Next on main image -->
+    <button
+      *ngIf="images.length > 1"
+      class="carousel-control-prev"
+      (click)="prevSlide()"
+    >
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button
+      *ngIf="images.length > 1"
+      class="carousel-control-next"
+      (click)="nextSlide()"
+    >
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- Thumbnails with Side Nav -->
+  <div
+    *ngIf="images.length > 1"
+    class="thumbnails-wrapper d-flex align-items-center justify-content-center mt-3"
+  >
+    <button class="thumb-nav prev" (click)="prevSlide()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div class="thumbnails d-flex">
+      <div
+        *ngFor="let img of images; let i = index"
+        class="thumb-wrapper"
+        [class.active]="i === activeIndex"
+        (click)="setSlide(i)"
+      >
+        <img
+          [src]="img.url"
+          [alt]="img.alt || 'Thumb ' + (i + 1)"
+          class="thumb-img"
+        />
+      </div>
+    </div>
+
+    <button class="thumb-nav next" (click)="nextSlide()">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="images.length === 0" class="text-center text-muted">
+  No images available.
+</div>

@@ -3,13 +3,13 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-image-slider',
+  selector: 'app-product-details-img-slider',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './image-slider.component.html',
-  styleUrls: ['./image-slider.component.css'],
+  templateUrl: './product-details-img-slider.component.html',
+  styleUrl: './product-details-img-slider.component.css',
 })
-export class ImageSliderComponent implements OnInit, OnDestroy {
+export class ProductDetailsImgSliderComponent implements OnInit, OnDestroy {
   @Input() images: { url: string; alt?: string }[] = [];
   @Input() interval: number = 3000; // Carousel interval in milliseconds
 

@@ -31,15 +31,18 @@
 
               <div class="col-md-3">
                 <p class="mt-4">
-                  <strong>Price:</strong> {{ product.price | number : "1.2-2" }}
-                  MMK
+                  <strong>Price:</strong>
+                  {{
+                    product.price | currency : undefined : "symbol" : "1.0-0"
+                  }}
                 </p>
               </div>
               <div class="col-md-3">
                 <p class="mt-4">
                   <strong>Sub total:</strong>
-                  {{ product.subtotal | number : "1.2-2" }}
-                  MMK
+                  {{
+                    product.subtotal | currency : undefined : "symbol" : "1.0-0"
+                  }}
                 </p>
               </div>
             </div>

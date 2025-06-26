@@ -6,6 +6,8 @@ import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-reset-password',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
 })

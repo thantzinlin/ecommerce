@@ -10,7 +10,51 @@
             <form #billingForm="ngForm" (ngSubmit)="placeOrder(billingForm)">
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="city" class="form-label">City</label>
+                  <label for="name" class="form-label"
+                    >Name <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    #name="ngModel"
+                    required
+                    [(ngModel)]="billingInfo.name"
+                    name="name"
+                  />
+                  <div *ngIf="name.invalid && name.touched" class="text-danger">
+                    Name is required.
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="phone" class="form-label"
+                    >Phone No <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="phone"
+                    placeholder="Enter Phone No"
+                    pattern="[0-9]{9,15}"
+                    #phone="ngModel"
+                    [(ngModel)]="billingInfo.phone"
+                    name="phone"
+                  />
+                  <div
+                    *ngIf="phone.invalid && phone.touched"
+                    class="text-danger"
+                  >
+                    Please enter a valid phone no.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="city" class="form-label"
+                    >City <span class="text-danger">*</span></label
+                  >
                   <select
                     id="city"
                     class="form-select"
@@ -26,7 +70,9 @@
                   </select>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="township" class="form-label">Township</label>
+                  <label for="township" class="form-label"
+                    >Township <span class="text-danger">*</span></label
+                  >
                   <select
                     id="township"
                     class="form-select form-control"
@@ -44,29 +90,19 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-8 mb-3">
-                  <label for="street" class="form-label"
-                    >Street, Building, Floor</label
-                  >
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">Email</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="street"
-                    placeholder="e.g., 123 Main St, Apt 4B"
-                    required
-                    #street="ngModel"
-                    [(ngModel)]="billingInfo.street"
-                    name="street"
+                    id="email"
+                    #email="ngModel"
+                    [(ngModel)]="billingInfo.email"
+                    name="email"
                   />
-                  <div
-                    *ngIf="street.invalid && street.touched"
-                    class="text-danger"
-                  >
-                    Address is required.
-                  </div>
                 </div>
 
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                   <label for="postal" class="form-label"
                     >Postal Code (Optional)</label
                   >
@@ -74,7 +110,6 @@
                     type="text"
                     class="form-control"
                     id="postal"
-                    placeholder="Enter postal code"
                     pattern="[0-9]{5}"
                     #postal="ngModel"
                     [(ngModel)]="billingInfo.postalCode"
@@ -86,6 +121,42 @@
                   >
                     Please enter a valid postal code.
                   </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="street" class="form-label"
+                    >Address <span class="text-danger">*</span></label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="street"
+                    placeholder="Street, Building, Floor"
+                    required
+                    #street="ngModel"
+                    [(ngModel)]="billingInfo.street"
+                    name="street"
+                    rows="3"
+                  ></textarea>
+                  <div
+                    *ngIf="street.invalid && street.touched"
+                    class="text-danger"
+                  >
+                    Address is required.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="remark" class="form-label">Remark</label>
+                  <textarea
+                    class="form-control"
+                    id="remark"
+                    placeholder="ပို့ဆောင်သူအတွက် အမှာစာ"
+                    [(ngModel)]="billingInfo.remark"
+                    rows="3"
+                  ></textarea>
                 </div>
               </div>
             </form>
@@ -140,46 +211,81 @@
         </div>
       </div>
     </div>
+    <div class="col-md-5 mt-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title mb-4 text-center">Order Summary</h3>
+          <div class="cart-item p-2">
+            <div *ngFor="let product of products; let i = index">
+              <div class="row p-2">
+                <div class="col-md-2">
+                  <img
+                    [src]="product.images[0]"
+                    alt="Product Image"
+                    class="img-thumbnail"
+                    style="width: 54px; height: 54px"
+                  />
+                </div>
+                <div class="col-md-5 pt-2">{{ product.name }}</div>
+                <div class="col-md-1 pt-3 text-end">{{ product.quantity }}</div>
+                <div class="col-md-4 pt-3 text-end">
+                  <!-- {{ formatAmount(product.quantity * product.price) }} -->
+                  <div *ngIf="product.discountedPrice > 0">
+                    <div class="text-muted text-decoration-line-through me-2">
+                      {{
+                        product.quantity * product.price
+                          | currency : undefined : "symbol" : "1.0-0"
+                      }}
+                    </div>
 
-    <div class="col-md-4 offset-md-1 mt-4">
-      <div class="cart-item p-2">
-        <div *ngFor="let product of products; let i = index">
-          <div class="row p-2">
-            <div class="col-md-3">
-              <img
-                [src]="product.images[0]"
-                alt="Product Image"
-                class="img-thumbnail"
-                style="width: 54px; height: 54px"
-              />
+                    <span class="text-danger fw-bold">
+                      {{
+                        product.quantity * product.discountedPrice
+                          | currency : undefined : "symbol" : "1.0-0"
+                      }}
+                    </span>
+                  </div>
+                  <div *ngIf="product.discountedPrice == 0">
+                    <span>
+                      {{
+                        product.quantity * product.price
+                          | currency : undefined : "symbol" : "1.0-0"
+                      }}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-3 pt-3">{{ product.name }}</div>
-            <div class="col-md-1 pt-3 text-end">{{ product.quantity }}</div>
-            <div class="col-md-5 pt-3 text-end">
-              {{ formatAmount(product.quantity * product.price) }}
+            <div class="row p-2 mt-2">
+              <div class="col-md-6"><p class="total">Subtotal</p></div>
+              <div class="col-md-6">
+                <p class="total text-end">
+                  {{ subTotal | currency : undefined : "symbol" : "1.0-0" }}
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="row p-2 mt-2">
-          <div class="col-md-6"><p class="total">Subtotal</p></div>
-          <div class="col-md-6">
-            <p class="total text-end">{{ formatAmount(getSubTotalPrice()) }}</p>
-          </div>
-        </div>
-        <hr style="margin: 0" />
-        <div class="row p-2 mt-3">
-          <div class="col-md-6"><p class="total">Shipping</p></div>
-          <div class="col-md-6">
-            <p class="total text-end">{{ formatAmount(shippingFee) }}</p>
-          </div>
-        </div>
-        <hr style="margin: 0" />
-        <div class="row p-2 mt-3">
-          <div class="col-md-6"><p class="total">Total</p></div>
-          <div class="col-md-6">
-            <p class="total text-end">
-              <b>{{ formatAmount(getGrandTotalPrice()) }} MMK</b>
-            </p>
+            <hr style="margin: 0" />
+            <div class="row p-2 mt-3">
+              <div class="col-md-6"><p class="total">Shipping</p></div>
+              <div class="col-md-6">
+                <p class="total text-end">
+                  {{ shippingFee | currency : undefined : "symbol" : "1.0-0" }}
+                </p>
+              </div>
+            </div>
+            <hr style="margin: 0" />
+            <div class="row p-2 mt-3">
+              <div class="col-md-6"><p class="total">Total</p></div>
+              <div class="col-md-6">
+                <p class="total text-end">
+                  <b
+                    >{{
+                      grandTotal | currency : undefined : "symbol" : "1.0-0"
+                    }}
+                  </b>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -199,6 +305,48 @@
           [disabled]="!billingForm.valid"
         >
           Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- order success dialog -->
+<div
+  class="modal fade"
+  id="orderSuccessModal"
+  tabindex="-1"
+  aria-labelledby="orderSuccessModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-body text-center p-5">
+        <div class="text-success mb-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="64"
+            height="64"
+            fill="currentColor"
+            class="bi bi-check-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.03a.75.75 0 0 0 1.08 0l3.992-3.992a.75.75 0 1 0-1.06-1.06L7.5 8.44 5.53 6.47a.75.75 0 0 0-1.06 1.06l2.5 2.5z"
+            />
+          </svg>
+        </div>
+        <h4 class="mb-3">Order Placed Successfully!</h4>
+        <p class="mb-4 text-muted">
+          Thank you for your purchase. Your order has been received and is being
+          processed.
+        </p>
+        <button
+          type="button"
+          class="btn btn-success px-4"
+          data-bs-dismiss="modal"
+        >
+          Continue Shopping
         </button>
       </div>
     </div>

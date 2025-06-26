@@ -96,14 +96,7 @@
   font-weight: 500;
   line-height: 24px;
 }
-.price {
-  color: var(--Secondary-2, #db4444);
-  /* font-family: Poppins; */
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 0px;
-}
+
 
 .productcontainer {
   position: relative;
