@@ -111,7 +111,9 @@
     </div>
     <div class="col-md-2">
       <div class="input-group">
-        <button class="btn btn-success">Apply Coupon</button>
+        <button class="btn btn-success" (click)="applyCupon()">
+          Apply Coupon
+        </button>
       </div>
     </div>
     <div
@@ -131,6 +133,13 @@
           <p>Subtotal:</p>
         </div>
         <div class="col-md-6 text-end">
+          <p
+            *ngIf="originSubTotalAmt > 0"
+            class="text-muted text-decoration-line-through me-2"
+          >
+            {{ originSubTotalAmt | currency : undefined : "symbol" : "1.0-0" }}
+          </p>
+
           <p>
             {{ subtotal | currency : undefined : "symbol" : "1.0-0" }}
           </p>

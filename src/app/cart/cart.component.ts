@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { ApiService } from '../api.service';
-import { Product } from '../model/product.model';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +20,7 @@ export class CartComponent implements OnInit {
   couponCode: string = '';
   shippingFee: number = 0;
   couponApplied: boolean = false;
-  couponDiscount: number = 50;
+  originSubTotalAmt: number = 0;
   subtotal: number = 0;
   grandTotal: number = 0;
   totalItems: number = 0;
@@ -29,7 +28,8 @@ export class CartComponent implements OnInit {
   constructor(
     private router: Router,
     private cartservice: CartService,
-    private http: ApiService
+    private http: ApiService,
+    private toast: ToastrService
   ) {}
   ngOnInit(): void {
     this.cartId = localStorage.getItem('cartId') || '';
@@ -97,7 +97,25 @@ export class CartComponent implements OnInit {
       this.getCartItem();
     }
   }
-
+  async applyCupon() {
+    const coupon = {
+      cuponCode: this.couponCode,
+      cartTotal: this.subtotal,
+    };
+    if (this.couponApplied === true) {
+      this.toast.info('Coupon Already Applied', 'Info');
+    }
+    const res: any = await this.http
+      .post(`discounts/applyCupon`, coupon)
+      .toPromise();
+    if (res.returncode === '200') {
+      this.couponApplied = true;
+      this.originSubTotalAmt = this.subtotal;
+      this.subtotal = res.data.discountedAmount;
+      this.getGrandTotalPrice();
+      this.toast.success('Coupon Applied Successfully', 'Success');
+    }
+  }
   getTotalItems() {
     this.totalItems = this.products.reduce(
       (total, product) => total + product.quantity,

@@ -38,7 +38,7 @@
       <div class="price">
         <div *ngIf="product.variants && product.variants.length > 0">
           <!-- Variant price -->
-          <div *ngIf="product.discountValue > 0">
+          <div *ngIf="product.discountValue > 0 && product.isDiscountActive">
             <div class="text-muted text-decoration-line-through me-2">
               {{
                 selectedVariant?.price
@@ -72,7 +72,7 @@
 
         <div *ngIf="!product.variants || product.variants.length === 0">
           <!-- Base product price -->
-          <div *ngIf="product.discountValue > 0">
+          <div *ngIf="product.discountValue > 0 && product.isDiscountActive">
             <div class="text-muted text-decoration-line-through me-2">
               {{ product.price | currency : undefined : "symbol" : "1.0-0" }}
             </div>
